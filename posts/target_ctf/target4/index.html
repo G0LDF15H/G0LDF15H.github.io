@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Target IV: Cyber Threat Intelligence | goldfish</title>
+<meta name="keywords" content="intel">
+<meta name="description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.
+NOTE: Some of these flags may be slightly off because I didn&rsquo;t actually record the exact string that worked, but the process should be around the same">
+<meta name="author" content="">
+<link rel="canonical" href="https://g0ldf15h.github.io/posts/target_ctf/target4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3613efbd0b1772781e8f49935e973cae632a7f61471c05b17be155505ccf87b5.css" integrity="sha256-NhPvvQsXcngej0mTXpc8rmMqf2FHHAWxe&#43;FVUFzPh7U=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://g0ldf15h.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://g0ldf15h.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://g0ldf15h.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://g0ldf15h.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://g0ldf15h.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Target IV: Cyber Threat Intelligence" />
+<meta property="og:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.
+NOTE: Some of these flags may be slightly off because I didn&rsquo;t actually record the exact string that worked, but the process should be around the same" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://g0ldf15h.github.io/posts/target_ctf/target4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-07-07T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Target IV: Cyber Threat Intelligence"/>
+<meta name="twitter:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.
+NOTE: Some of these flags may be slightly off because I didn&rsquo;t actually record the exact string that worked, but the process should be around the same"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://g0ldf15h.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Target IV: Cyber Threat Intelligence",
+      "item": "https://g0ldf15h.github.io/posts/target_ctf/target4/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Target IV: Cyber Threat Intelligence",
+  "name": "Target IV: Cyber Threat Intelligence",
+  "description": "Recently I completed Tier 1 of Target\u0026rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.\nNOTE: Some of these flags may be slightly off because I didn\u0026rsquo;t actually record the exact string that worked, but the process should be around the same",
+  "keywords": [
+    "intel"
+  ],
+  "articleBody": "Recently I completed Tier 1 of Target’s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.\nNOTE: Some of these flags may be slightly off because I didn’t actually record the exact string that worked, but the process should be around the same\nWHOIS responsible for this IP address? 100 points\nThe incident response team has identified an IP address that several infected hosts have been communicating with: 165.227.251.183\nAs part of the investigation, you’ve been tasked with identifying the company that owns this IP address.\nThis was a simple lookup.\nFlag: Digital Ocean\nReferences https://ipinfo.io/AS14061/165.227.248.0/22\nDon’t sweat the MITRE technique 100 points\nThe incident response team has identified a suspicious command being executed on several infected hosts: nltest /domain_trusts /all_trusts\nTo help determine what the adversary is up to, you’ve been asked to identify the MITRE ATT\u0026CK technique ID associated with this activity.\nI searched for the command and clicked on the first link, which lead to the page on Domain Trust Discovery, Technique T1482.\nFlag: T1482\nReferences https://attack.mitre.org/techniques/T1482/\nISOlate the domain 200 points\nA fresh SHINY SCORPION campaign is attaching variations of onedrivephotos.iso, but it doesn’t seem to do anything in your sandbox.\nIf you were able to get the malware running, what C2 domain would it try to contact?\n_Note: The “malware” in this challenge is custom-written and benign but simulates malicious behavior, which will almost certainly cause some AV products to flag it. Exercise caution if downloading on a work/school computer!\nChallenge file: onedrivephotos.iso | SHA-256: 9f1eb0a100615cdda44a13f434627f8978d133ca4ef4a002809f95dcc8d24ff6 Note: this is a pretty cheesy solution\nThe ISO attached included several files: To investigate further, I ran strings on all the files. In version.dll, I found this domain: Flag: shiniest.sting.example\nThe writers are on Cobalt Strike and this is the best pun I could come up with 200 points\nThere have been reports that the most recent SHINY SCORPION campaign has begun avoiding detection by leveraging Cobalt Strike’s upgraded sleep masking functionality.\nThe hunt team has collected several relevant samples, but doesn’t know which of them is part of this new campaign:\n“haystack.zip”; SHA256: 09b53d52d39d8a941835ff7e92dacfe9abe4e82add69851ff968c1011a0e213b The threat detection team wants to know the new domain this campaign is using for command and control.\nNote: The “malware” here is custom-written and benign but simulates malicious behavior, which could cause some AV products to flag it. Exercise caution if downloading on a work/school computer!\nChallenge file: haystack.zip | SHA-256: 09b53d52d39d8a941835ff7e92dacfe9abe4e82add69851ff968c1011a0e213b For this challenge, I had to explore a bit before arriving at the flag. At first, I wasn’t sure what to do. I first tried to run strings on all the files and go through the output using a diffchecker. However, I would have to go through 20 files and I knew that this was inefficient and probably not the right way to approach the solution. I ended up leveraging two tools: Yara and VirusTotal. I had experience with VirusTotal but was not familiar with Yara. I tried some Yara rules on the files, but they didn’t detect anything so I thought it wasn’t the right tool.\nI uploaded haystack.zip in VirusTotal. At first I tried to submit the domains contacted, but they were wrong. From there, I pivoted to the report by Zenbox under the Full Reports tab in VirusTotal. In the Dropped Info tab, there was information about each file. I went through the first file and saw a domain which looked suspicious. I got too excited and tried to submit that too but it was wrong. I think I’m learning to be more patient and to trust your gut instincts. From there, I collected all the domains from each file. I was stuck after that. I didn’t know what differentiated them. So I went back and reread the challenge and looked more into the Cobalt Strike Sleep Mask Kit. I realized that maybe I was leveraging Yara wrong and found a sleep detection rule from CodeX. I then ran that on the directory and immediately got this output: This corresponded with the blue.venom.sting.example domain.\nLooking back at this challenge, if I knew how to properly use Yara and VirusTotal, this probably would’ve been a very easy flag. I’m glad that I got to build up the experience!\nFlag: blue.venom.sting.example\nReferences https://github.com/CodeXTF2/cobaltstrike-sleepmask-yara.\nCan I copy your ransomware? Yeah just don’t do it opcode for opcode. 300 points\nThe SHINY SCORPION has stung again! Fortunately for us, they were lazy this time and copied another ransomware gang’s homework, including their mistakes!\nCan you find a way to decrypt flag.txt and save our data?\nNote: sting.bin is custom-written and benign but simulates malicious behavior, which could cause some AV products to flag it. Exercise caution if downloading on a work/school computer!\nChallenge files: flag.txt | SHA-256: f8e1365ba60efd2385ea0a206ef55c0bd669b91f0fc5f93383faa5c30da173bb flag.txt.C_I_0P | SHA-256: 46e2e5c14f48ad049937ce20d606251b5ada8b9d930174579926241625e0f790 sting.bin| SHA-256: 587da185780edc95b1e1e0a5ee54f9002f60abc556ee7f6dfbe15108ac87c9cb I was stuck for a few days on this challenge as initially I was focused on research opcode frequency. I stopped focusing on opcodes and started researching ransomware gangs to figure out which one shiny scorpion was copying. On a closer look at the files given, I kept wondering, what is the .txt.C_I_OP extension? It just didn’t make sense to me. Then, it suddenly clicked. I heard of this ransomware gang called CL0P and I had a lead.\nOne of the indicators of the CL0P ransomware was the file extension names. The ransomware given was a copy of the ELF variant of CL0P targeting Linux systems.\nThe Windows utilized a Mersenne Twister PRNG to generate a 0x75 byte size RC4 key for each file which would then be validated and used for file encryption. Then by using the RSA public key, it would encrypt the generated RC4 key and store it to $filename.$clop_extension. Victims who paid the ransom demand received a decryptor which would decrypt the generated CL0P file using the RSA private key, retrieve the generated RC4 key and then decrypt the encrypted file.\nIn the Linux version, the file contained a hardcoded RC4 master key. By using the RC4 master key, the ransomware would encrypt the generated RC4 key (second RC4) and store it to $filename.$clop_extension. Because RC4 is symmetric, we can also decrypt CL0P ELF encrypted files. Sentinel One provided a python script to decrypt the files.\nFlag: maintain_offline_backups\nReferences https://www.sentinelone.com/labs/cl0p-ransomware-targets-linux-systems-with-flawed-encryption-decryptor-available/ https://github.com/SentineLabs/Cl0p-ELF-Decryptor\nAppendix The writers are on Cobalt Strike and this is the best pun I could come up with All the domains:\nblue.scorpion.sting.example https://www.virustotal.com/gui/file/60b3cd6e8521e3951848527e2e152b47c13e32f8296333bb129ed553ccf96c80/behavior\npurple.venom.sting.example https://www.virustotal.com/gui/file/f490af9e1dc4d0eef0b68eca46c8ced0d8e5350b041bad64f5c785ffdfda54bb/behavior\npurple.pincer.sting.example https://www.virustotal.com/gui/file/effc32cd0380d6b67f160040e22d59fcaf1cfe0be1e836f8cf133c006089dd29/behavior\ngreen.pincer.sting.example https://www.virustotal.com/gui/file/2ac237ae4b29e566e4a9657ebccac951ebf8af97dbe594f93ee22ade53446d17/behavior\ngrey.venom.sting.example https://www.virustotal.com/gui/file/20df44811fde6209ca25632ce8717301775d0fd32749cc2eae3f12f75ba1e66f/behavior\ngreen.shiny.sting.example https://www.virustotal.com/gui/file/8e3902f1f5deccc71e92febe177604c3d451d06fc70ea841c549a07568543a7a/behavior\nyellow.venom.sting.example https://www.virustotal.com/gui/file/622f2e56ad26f52822fe7f7c33c7edaa069b2ce764af80d6b476be2deafc542b/behavior\ngold.scorpion.sting.example https://www.virustotal.com/gui/file/8fbce64e494e46b34c56efb340f1a7e48871666b34b5997822a36f87ae2c311d/behavior\nblack.venom.sting.example https://www.virustotal.com/gui/file/4a453a03f7321405d0cfd9e4dcf401343605782dbfddb614dd71c83e3014956b/behavior\ngreen.venom.sting.example https://www.virustotal.com/gui/file/3d34386d178d9564f9124c124fb1f044a5833a6b06ab181494af7c9322f27edc/behavior\nblue.venom.sting.example https://www.virustotal.com/gui/file/00f72dfb3a2e844e55e987b53a58e8fbd19473477aa10945b2ddde1aefbb2331/behavior\norange.pincer.sting.example https://www.virustotal.com/gui/file/0EC2A6ADFB48BDFC3EF0B48891FA7D5AB7712BF8533AD557D5FEE95D92EF23AC\nyellow.scorpion.sting.example https://www.virustotal.com/gui/file/69C12861D9C076AD0E798E8CA0D71FA664DFDD0E06363F4F594B6C4EBDB21E87\nwhite.scorpion.sting.example https://www.virustotal.com/gui/file/dc1eaeb72270a77f8d5161c5a3c44b24933161afd3b9aef626b5980a075d545c/behavior\nblue.shiny.sting.example https://www.virustotal.com/gui/file/E5C20A894592C99B2B5933D3953E22114174343BFFE7D5C5E796ACBB7DA70871\norange.scorpion.sting.example https://www.virustotal.com/gui/file/5783092092CD5F5C6B7FC9A0CA5D27E3CD77AA5AF5362865B7CA44726B553C02\npurple.shiny.sting.example https://www.virustotal.com/gui/file/6581e70c3fc187edaf89c3fe190064020123cc564ed49c333d784b90f3589156/behavior\ngrey.scorpion.sting.example https://www.virustotal.com/gui/file/D9171D035B4693B46876CF68DC11A4E10405932BDBD172F4B1189D6DC78F56A1\nblue.pincer.sting.example https://www.virustotal.com/gui/file/6afd18a1a34d6dbbce112f04db2157fb438885aa7391b93240cdd35fd862ece4/behavior\nyellow.shiny.sting.example https://www.virustotal.com/gui/file/cd8994278af872d84911b9351b0a6ff55cec81eb85a361fd2dd563cc85f54220/behavior\n",
+  "wordCount" : "1136",
+  "inLanguage": "en",
+  "datePublished": "2023-07-07T00:00:00Z",
+  "dateModified": "2023-07-07T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://g0ldf15h.github.io/posts/target_ctf/target4/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "goldfish",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://g0ldf15h.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://g0ldf15h.github.io/" accesskey="h" title="goldfish (Alt + H)">goldfish</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://g0ldf15h.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://g0ldf15h.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://g0ldf15h.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Target IV: Cyber Threat Intelligence
+    </h1>
+    <div class="post-meta"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul><ul>
+                <li>
+                    <a href="#whois-responsible-for-this-ip-address" aria-label="WHOIS responsible for this IP address?">WHOIS responsible for this IP address?</a><ul>
+                        
+                <li>
+                    <a href="#references" aria-label="References">References</a></li></ul>
+                </li>
+                <li>
+                    <a href="#dont-sweat-the-mitre-technique" aria-label="Don&amp;rsquo;t sweat the MITRE technique">Don&rsquo;t sweat the MITRE technique</a><ul>
+                        
+                <li>
+                    <a href="#references-1" aria-label="References">References</a></li></ul>
+                </li>
+                <li>
+                    <a href="#isolate-the-domain" aria-label="ISOlate the domain">ISOlate the domain</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#challenge-file" aria-label="Challenge file:">Challenge file:</a></li></ul>
+                    </ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with" aria-label="The writers are on Cobalt Strike and this is the best pun I could come up with">The writers are on Cobalt Strike and this is the best pun I could come up with</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#challenge-file-1" aria-label="Challenge file:">Challenge file:</a></li></ul>
+                    </ul>
+                    
+                <li>
+                    <a href="#references-2" aria-label="References">References</a></li></ul>
+                </li>
+                <li>
+                    <a href="#can-i-copy-your-ransomware-yeah-just-dont-do-it-opcode-for-opcode" aria-label="Can I copy your ransomware? Yeah just don&amp;rsquo;t do it opcode for opcode.">Can I copy your ransomware? Yeah just don&rsquo;t do it opcode for opcode.</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#challenge-files" aria-label="Challenge files:">Challenge files:</a></li></ul>
+                    </ul>
+                    
+                <li>
+                    <a href="#references-3" aria-label="References">References</a></li></ul>
+                </li></ul>
+                    
+                <li>
+                    <a href="#appendix" aria-label="Appendix">Appendix</a><ul>
+                        
+                <li>
+                    <a href="#the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with-1" aria-label="The writers are on Cobalt Strike and this is the best pun I could come up with">The writers are on Cobalt Strike and this is the best pun I could come up with</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.</p>
+<p><em>NOTE: Some of these flags may be slightly off because I didn&rsquo;t actually record the exact string that worked, but the process should be around the same</em></p>
+<h2 id="whois-responsible-for-this-ip-address">WHOIS responsible for this IP address?<a hidden class="anchor" aria-hidden="true" href="#whois-responsible-for-this-ip-address">#</a></h2>
+<p>100 points</p>
+<blockquote>
+<p>The incident response team has identified an IP address that several infected hosts have been communicating with: <code>165.227.251.183</code></p>
+<p>As part of the investigation, you&rsquo;ve been tasked with <strong>identifying the company that owns this IP address</strong>.</p>
+</blockquote>
+<p>This was a simple lookup.</p>
+<p>Flag: <code>Digital Ocean</code></p>
+<h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
+<p><a href="https://ipinfo.io/AS14061/165.227.248.0/22">https://ipinfo.io/AS14061/165.227.248.0/22</a></p>
+<h2 id="dont-sweat-the-mitre-technique">Don&rsquo;t sweat the MITRE technique<a hidden class="anchor" aria-hidden="true" href="#dont-sweat-the-mitre-technique">#</a></h2>
+<p>100 points</p>
+<blockquote>
+<p>The incident response team has identified a suspicious command being executed on several infected hosts: <code>nltest /domain_trusts /all_trusts</code></p>
+<p>To help determine what the adversary is up to, you&rsquo;ve been asked to <strong>identify the MITRE ATT&amp;CK technique ID associated with this activity</strong>.</p>
+</blockquote>
+<p>I searched for the command and clicked on the first link, which lead to the page on Domain Trust Discovery, Technique T1482.</p>
+<p>Flag: <code> T1482</code></p>
+<h3 id="references-1">References<a hidden class="anchor" aria-hidden="true" href="#references-1">#</a></h3>
+<p><a href="https://attack.mitre.org/techniques/T1482/">https://attack.mitre.org/techniques/T1482/</a></p>
+<h2 id="isolate-the-domain">ISOlate the domain<a hidden class="anchor" aria-hidden="true" href="#isolate-the-domain">#</a></h2>
+<p>200 points</p>
+<blockquote>
+<p>A fresh SHINY SCORPION campaign is attaching variations of <code>onedrivephotos.iso</code>, but it doesn&rsquo;t seem to do anything in your sandbox.</p>
+<p>If you were able to get the malware running, <strong>what C2 domain would it try to contact?</strong></p>
+<p>_Note: The &ldquo;malware&rdquo; in this challenge is custom-written and benign but simulates malicious behavior, which will almost certainly cause some AV products to flag it. Exercise caution if downloading on a work/school computer!</p>
+<h5 id="challenge-file">Challenge file:<a hidden class="anchor" aria-hidden="true" href="#challenge-file">#</a></h5>
+<ul>
+<li><code>onedrivephotos.iso</code> | SHA-256: <code>9f1eb0a100615cdda44a13f434627f8978d133ca4ef4a002809f95dcc8d24ff6</code></li>
+</ul>
+</blockquote>
+<p><em>Note: this is a pretty cheesy solution</em></p>
+<p>The ISO attached included several files:
+<img loading="lazy" src="lsfiles.png" alt="images"  />
+
+To investigate further, I ran <code>strings</code> on all the files. In <code>version.dll</code>, I found this domain:
+<img loading="lazy" src="domainshiny.png" alt="image"  />
+</p>
+<p>Flag: <code>shiniest.sting.example</code></p>
+<h2 id="the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with">The writers are on Cobalt Strike and this is the best pun I could come up with<a hidden class="anchor" aria-hidden="true" href="#the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with">#</a></h2>
+<p>200 points</p>
+<blockquote>
+<p>There have been reports that the most recent SHINY SCORPION campaign has begun avoiding detection by leveraging Cobalt Strike&rsquo;s upgraded sleep masking functionality.</p>
+<p>The hunt team has collected several relevant samples, but doesn&rsquo;t know which of them is part of this new campaign:</p>
+<ul>
+<li>&ldquo;haystack.zip&rdquo;; SHA256: <code>09b53d52d39d8a941835ff7e92dacfe9abe4e82add69851ff968c1011a0e213b</code></li>
+</ul>
+<p>The threat detection team wants to know the <strong>new domain this campaign is using for command and control</strong>.</p>
+<p><em>Note: The &ldquo;malware&rdquo; here is custom-written and benign but simulates malicious behavior, which could cause some AV products to flag it. Exercise caution if downloading on a work/school computer!</em></p>
+<h5 id="challenge-file-1">Challenge file:<a hidden class="anchor" aria-hidden="true" href="#challenge-file-1">#</a></h5>
+<ul>
+<li><code>haystack.zip</code> | SHA-256: <code>09b53d52d39d8a941835ff7e92dacfe9abe4e82add69851ff968c1011a0e213b</code></li>
+</ul>
+</blockquote>
+<p>For this challenge, I had to explore a bit before arriving at the flag. At first, I wasn’t sure what to do. I first tried to run <code>strings</code> on all the files and go through the output using a diffchecker. However, I would have to go through 20 files and I knew that this was inefficient and probably not the right way to approach the solution. I ended up leveraging two tools: <code>Yara</code> and <code>VirusTotal</code>. I had experience with <code>VirusTotal</code> but was not familiar with  <code>Yara</code>. </p>
+<p>I tried some Yara rules on the files, but they didn’t detect anything so I thought it wasn’t the right tool.</p>
+<p>I uploaded haystack.zip in <code>VirusTotal</code>. At first I tried to submit the domains contacted, but they were wrong. From there, I pivoted to the report by <a href="https://vtbehaviour.commondatastorage.googleapis.com/09b53d52d39d8a941835ff7e92dacfe9abe4e82add69851ff968c1011a0e213b_Zenbox.html?GoogleAccessId=758681729565-rc7fgq07icj8c9dm2gi34a4cckv235v1@developer.gserviceaccount.com&amp;Expires=1687574155&amp;Signature=cKxZUvTq6Bbgq0Z7lymwWVGDP4hIAjZ8McZ65VGx66%2BqUlcVPpheSdO%2B5wu6P8Ea3ljIBMCh%2BH36%0Avwd%2BRf8oVnagggthINNgGpdKE%2BHG6ZPU8o5px3BdTYFynwuxPpC9a%2FZa7bfTZCWCWWRH73duQMbS%0A84d6TQU2rb1Csc6NjvxMNWJqmbXCIq7t%2BC01u7As9ag0UXKgFTcG15gjCIu0TPrI2Ax2q6t0krxu%0AYfVbVMllJYZ4Pgz9aKoJt5CMR0Jsxicet5W%2BmF1N32WZTVoP3EkiBE1NV5n3L4sDbszcN90Gj8bn%0AT3Ksez6ZENjvhzxbcVCo8eTYAgfM9oqGfrNViA%3D%3D&amp;response-content-type=text%2Fhtml;#network-info">Zenbox</a> under the Full Reports tab in <code>VirusTotal</code>.  In the Dropped Info tab, there was information about each file. I went through the first file and saw a domain which looked suspicious. I got too excited and tried to submit that too but it was wrong. I think I’m learning to be more patient and to trust your gut instincts. From there, I collected all the domains from each file. I was stuck after that. I didn’t know what differentiated them. So I went back and reread the challenge and looked more into the Cobalt Strike Sleep Mask Kit. I realized that maybe I was leveraging Yara wrong and found a sleep detection rule from CodeX. I then ran that on the directory and immediately got this output:
+<img loading="lazy" src="sleepmaskimages.png" alt="image"  />
+
+This corresponded with the <code>blue.venom.sting.example</code> domain.</p>
+<p>Looking back at this challenge, if I knew how to properly use Yara and VirusTotal, this probably would’ve been a very easy flag. I’m glad that I got to build up the experience!</p>
+<p>Flag:  <code>blue.venom.sting.example</code></p>
+<h3 id="references-2">References<a hidden class="anchor" aria-hidden="true" href="#references-2">#</a></h3>
+<p><a href="https://github.com/CodeXTF2/cobaltstrike-sleepmask-yara">https://github.com/CodeXTF2/cobaltstrike-sleepmask-yara</a>.</p>
+<h2 id="can-i-copy-your-ransomware-yeah-just-dont-do-it-opcode-for-opcode">Can I copy your ransomware? Yeah just don&rsquo;t do it opcode for opcode.<a hidden class="anchor" aria-hidden="true" href="#can-i-copy-your-ransomware-yeah-just-dont-do-it-opcode-for-opcode">#</a></h2>
+<p>300 points</p>
+<blockquote>
+<p>The SHINY SCORPION has stung again! Fortunately for us, they were lazy this time and copied another ransomware gang&rsquo;s homework, including their mistakes!</p>
+<p>Can you find a way to <strong>decrypt flag.txt</strong> and save our data?</p>
+<p><em>Note: <code>sting.bin</code> is custom-written and benign but simulates malicious behavior, which could cause some AV products to flag it. Exercise caution if downloading on a work/school computer!</em></p>
+<h5 id="challenge-files">Challenge files:<a hidden class="anchor" aria-hidden="true" href="#challenge-files">#</a></h5>
+<ul>
+<li><code>flag.txt</code> | SHA-256: <code>f8e1365ba60efd2385ea0a206ef55c0bd669b91f0fc5f93383faa5c30da173bb</code></li>
+<li><code>flag.txt.C_I_0P</code> | SHA-256: <code>46e2e5c14f48ad049937ce20d606251b5ada8b9d930174579926241625e0f790</code></li>
+<li><code>sting.bin</code>| SHA-256: <code>587da185780edc95b1e1e0a5ee54f9002f60abc556ee7f6dfbe15108ac87c9cb</code></li>
+</ul>
+</blockquote>
+<p>I was stuck for a few days on this challenge as initially I was focused on research opcode frequency. I stopped focusing on opcodes and started researching ransomware gangs to figure out which one shiny scorpion was copying. On a closer look at the files given, I kept wondering, what is the <code>.txt.C_I_OP</code> extension? It just didn’t make sense to me. Then, it suddenly clicked. I heard of this ransomware gang called <code>CL0P</code> and I had a lead.</p>
+<p>One of the indicators of the CL0P ransomware was the file extension names. The ransomware given was a copy of the ELF variant of CL0P targeting Linux systems.</p>
+<p>The Windows utilized a Mersenne Twister PRNG to generate a 0x75 byte size RC4 key for each file which would then be validated and used for file encryption. Then by using the RSA public key, it would encrypt the generated RC4 key and store it to <code>$filename.$clop_extension</code>. Victims who paid the ransom demand received a decryptor which would decrypt the generated <code>CL0P</code> file using the RSA private key, retrieve the generated RC4 key and then decrypt the encrypted file.</p>
+<p>In the Linux version, the file contained a hardcoded RC4 master key. By using the RC4 master key, the ransomware would encrypt the generated RC4 key (second RC4) and store it to  <code>$filename.$clop_extension</code>. Because RC4 is symmetric, we can also decrypt  <code>CL0P</code> ELF encrypted files. Sentinel One provided a python script to decrypt the files.</p>
+<p><img loading="lazy" src="clopflag.png" alt="image"  />
+</p>
+<p>Flag: <code>maintain_offline_backups</code></p>
+<h3 id="references-3">References<a hidden class="anchor" aria-hidden="true" href="#references-3">#</a></h3>
+<p><a href="https://www.sentinelone.com/labs/cl0p-ransomware-targets-linux-systems-with-flawed-encryption-decryptor-available/">https://www.sentinelone.com/labs/cl0p-ransomware-targets-linux-systems-with-flawed-encryption-decryptor-available/</a>
+<a href="https://github.com/SentineLabs/Cl0p-ELF-Decryptor">https://github.com/SentineLabs/Cl0p-ELF-Decryptor</a></p>
+<h1 id="appendix">Appendix<a hidden class="anchor" aria-hidden="true" href="#appendix">#</a></h1>
+<h2 id="the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with-1">The writers are on Cobalt Strike and this is the best pun I could come up with<a hidden class="anchor" aria-hidden="true" href="#the-writers-are-on-cobalt-strike-and-this-is-the-best-pun-i-could-come-up-with-1">#</a></h2>
+<p>All the domains:</p>
+<ol>
+<li>
+<p>blue.scorpion.sting.example
+<a href="https://www.virustotal.com/gui/file/60b3cd6e8521e3951848527e2e152b47c13e32f8296333bb129ed553ccf96c80/behavior">https://www.virustotal.com/gui/file/60b3cd6e8521e3951848527e2e152b47c13e32f8296333bb129ed553ccf96c80/behavior</a></p>
+</li>
+<li>
+<p>purple.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/f490af9e1dc4d0eef0b68eca46c8ced0d8e5350b041bad64f5c785ffdfda54bb/behavior">https://www.virustotal.com/gui/file/f490af9e1dc4d0eef0b68eca46c8ced0d8e5350b041bad64f5c785ffdfda54bb/behavior</a></p>
+</li>
+<li>
+<p>purple.pincer.sting.example
+<a href="https://www.virustotal.com/gui/file/effc32cd0380d6b67f160040e22d59fcaf1cfe0be1e836f8cf133c006089dd29/behavior">https://www.virustotal.com/gui/file/effc32cd0380d6b67f160040e22d59fcaf1cfe0be1e836f8cf133c006089dd29/behavior</a></p>
+</li>
+<li>
+<p>green.pincer.sting.example
+<a href="https://www.virustotal.com/gui/file/2ac237ae4b29e566e4a9657ebccac951ebf8af97dbe594f93ee22ade53446d17/behavior">https://www.virustotal.com/gui/file/2ac237ae4b29e566e4a9657ebccac951ebf8af97dbe594f93ee22ade53446d17/behavior</a></p>
+</li>
+<li>
+<p>grey.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/20df44811fde6209ca25632ce8717301775d0fd32749cc2eae3f12f75ba1e66f/behavior">https://www.virustotal.com/gui/file/20df44811fde6209ca25632ce8717301775d0fd32749cc2eae3f12f75ba1e66f/behavior</a></p>
+</li>
+<li>
+<p>green.shiny.sting.example
+<a href="https://www.virustotal.com/gui/file/8e3902f1f5deccc71e92febe177604c3d451d06fc70ea841c549a07568543a7a/behavior">https://www.virustotal.com/gui/file/8e3902f1f5deccc71e92febe177604c3d451d06fc70ea841c549a07568543a7a/behavior</a></p>
+</li>
+<li>
+<p>yellow.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/622f2e56ad26f52822fe7f7c33c7edaa069b2ce764af80d6b476be2deafc542b/behavior">https://www.virustotal.com/gui/file/622f2e56ad26f52822fe7f7c33c7edaa069b2ce764af80d6b476be2deafc542b/behavior</a></p>
+</li>
+<li>
+<p>gold.scorpion.sting.example
+<a href="https://www.virustotal.com/gui/file/8fbce64e494e46b34c56efb340f1a7e48871666b34b5997822a36f87ae2c311d/behavior">https://www.virustotal.com/gui/file/8fbce64e494e46b34c56efb340f1a7e48871666b34b5997822a36f87ae2c311d/behavior</a></p>
+</li>
+<li>
+<p>black.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/4a453a03f7321405d0cfd9e4dcf401343605782dbfddb614dd71c83e3014956b/behavior">https://www.virustotal.com/gui/file/4a453a03f7321405d0cfd9e4dcf401343605782dbfddb614dd71c83e3014956b/behavior</a></p>
+</li>
+<li>
+<p>green.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/3d34386d178d9564f9124c124fb1f044a5833a6b06ab181494af7c9322f27edc/behavior">https://www.virustotal.com/gui/file/3d34386d178d9564f9124c124fb1f044a5833a6b06ab181494af7c9322f27edc/behavior</a></p>
+</li>
+<li>
+<p>blue.venom.sting.example
+<a href="https://www.virustotal.com/gui/file/00f72dfb3a2e844e55e987b53a58e8fbd19473477aa10945b2ddde1aefbb2331/behavior">https://www.virustotal.com/gui/file/00f72dfb3a2e844e55e987b53a58e8fbd19473477aa10945b2ddde1aefbb2331/behavior</a></p>
+</li>
+<li>
+<p>orange.pincer.sting.example
+<a href="https://www.virustotal.com/gui/file/0EC2A6ADFB48BDFC3EF0B48891FA7D5AB7712BF8533AD557D5FEE95D92EF23AC">https://www.virustotal.com/gui/file/0EC2A6ADFB48BDFC3EF0B48891FA7D5AB7712BF8533AD557D5FEE95D92EF23AC</a></p>
+</li>
+<li>
+<p>yellow.scorpion.sting.example
+<a href="https://www.virustotal.com/gui/file/69C12861D9C076AD0E798E8CA0D71FA664DFDD0E06363F4F594B6C4EBDB21E87">https://www.virustotal.com/gui/file/69C12861D9C076AD0E798E8CA0D71FA664DFDD0E06363F4F594B6C4EBDB21E87</a></p>
+</li>
+<li>
+<p>white.scorpion.sting.example 
+<a href="https://www.virustotal.com/gui/file/dc1eaeb72270a77f8d5161c5a3c44b24933161afd3b9aef626b5980a075d545c/behavior">https://www.virustotal.com/gui/file/dc1eaeb72270a77f8d5161c5a3c44b24933161afd3b9aef626b5980a075d545c/behavior</a></p>
+</li>
+<li>
+<p>blue.shiny.sting.example
+<a href="https://www.virustotal.com/gui/file/E5C20A894592C99B2B5933D3953E22114174343BFFE7D5C5E796ACBB7DA70871">https://www.virustotal.com/gui/file/E5C20A894592C99B2B5933D3953E22114174343BFFE7D5C5E796ACBB7DA70871</a></p>
+</li>
+<li>
+<p>orange.scorpion.sting.example
+<a href="https://www.virustotal.com/gui/file/5783092092CD5F5C6B7FC9A0CA5D27E3CD77AA5AF5362865B7CA44726B553C02">https://www.virustotal.com/gui/file/5783092092CD5F5C6B7FC9A0CA5D27E3CD77AA5AF5362865B7CA44726B553C02</a></p>
+</li>
+<li>
+<p>purple.shiny.sting.example
+<a href="https://www.virustotal.com/gui/file/6581e70c3fc187edaf89c3fe190064020123cc564ed49c333d784b90f3589156/behavior">https://www.virustotal.com/gui/file/6581e70c3fc187edaf89c3fe190064020123cc564ed49c333d784b90f3589156/behavior</a></p>
+</li>
+<li>
+<p>grey.scorpion.sting.example
+<a href="https://www.virustotal.com/gui/file/D9171D035B4693B46876CF68DC11A4E10405932BDBD172F4B1189D6DC78F56A1">https://www.virustotal.com/gui/file/D9171D035B4693B46876CF68DC11A4E10405932BDBD172F4B1189D6DC78F56A1</a></p>
+</li>
+<li>
+<p>blue.pincer.sting.example
+<a href="https://www.virustotal.com/gui/file/6afd18a1a34d6dbbce112f04db2157fb438885aa7391b93240cdd35fd862ece4/behavior">https://www.virustotal.com/gui/file/6afd18a1a34d6dbbce112f04db2157fb438885aa7391b93240cdd35fd862ece4/behavior</a></p>
+</li>
+<li>
+<p>yellow.shiny.sting.example
+<a href="https://www.virustotal.com/gui/file/cd8994278af872d84911b9351b0a6ff55cec81eb85a361fd2dd563cc85f54220/behavior">https://www.virustotal.com/gui/file/cd8994278af872d84911b9351b0a6ff55cec81eb85a361fd2dd563cc85f54220/behavior</a></p>
+</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://g0ldf15h.github.io/tags/intel/">intel</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://g0ldf15h.github.io/posts/target_ctf/target3/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Target III: USB Forensics</span>
+  </a>
+  <a class="next" href="https://g0ldf15h.github.io/posts/website_notes/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Website notes</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://g0ldf15h.github.io/">goldfish</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>reverse engineering on goldfish</title>
+    <link>https://g0ldf15h.github.io/tags/reverse-engineering/</link>
+    <description>Recent content in reverse engineering on goldfish</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Target II: Reverse Engineering</title>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/target2/</link>
+      <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/target2/</guid>
+      <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this second part, I will go over the challenges in the reverse engineering section. In my opinion, this was the most technical challenge as knowledge of basic assembly (x86) and the C programming language was required.</description>
+    </item>
+    
+  </channel>
+</rss>
