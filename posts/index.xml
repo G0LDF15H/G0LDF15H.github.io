@@ -69,7 +69,8 @@ hugo -t [name of theme] cd public/ git add . git commit -m &amp;#34;[message]&am
       <pubDate>Fri, 30 Jun 2023 23:09:36 -0500</pubDate>
       
       <guid>https://g0ldf15h.github.io/posts/hello_world/</guid>
-      <description>Obligatory first post :3. Hi I&amp;rsquo;m Goldfish!</description>
+      <description>Obligatory first post :3
+Hi I&amp;rsquo;m Goldfish 🐠 🫧!</description>
     </item>
     
   </channel>
