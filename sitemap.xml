@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://g0ldf15h.github.io/posts/dev_notes/bash-scripting/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/dev_notes/c&#43;&#43;-notes/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/pwn_college/program_misuse/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/dev_notes/python/</loc>
+    <lastmod>2023-08-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/</loc>
+    <lastmod>2023-07-14T08:41:21-05:00</lastmod>
+  </url><url>
     <loc>https://g0ldf15h.github.io/categories/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
@@ -14,13 +35,7 @@
     <loc>https://g0ldf15h.github.io/tags/forensics/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/</loc>
-    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://g0ldf15h.github.io/tags/intel/</loc>
-    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://g0ldf15h.github.io/posts/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/tags/reverse-engineering/</loc>
@@ -32,16 +47,16 @@
     <loc>https://g0ldf15h.github.io/tags/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/posts/target_ctf/target1/</loc>
+    <loc>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/posts/target_ctf/target2/</loc>
+    <loc>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/posts/target_ctf/target3/</loc>
+    <loc>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/posts/target_ctf/target4/</loc>
+    <loc>https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/posts/website_notes/</loc>

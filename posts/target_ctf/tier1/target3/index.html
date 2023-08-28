@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Target III: USB Forensics | goldfish</title>
+<meta name="keywords" content="forensics">
+<meta name="description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.
+Challenges Find the Blue Yeti 100 points
+We believe that while one of the ransomware operators was out in public they dropped this USB device.">
+<meta name="author" content="">
+<link rel="canonical" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3613efbd0b1772781e8f49935e973cae632a7f61471c05b17be155505ccf87b5.css" integrity="sha256-NhPvvQsXcngej0mTXpc8rmMqf2FHHAWxe&#43;FVUFzPh7U=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://g0ldf15h.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://g0ldf15h.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://g0ldf15h.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://g0ldf15h.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://g0ldf15h.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YD66GB1T4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8YD66GB1T4', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Target III: USB Forensics" />
+<meta property="og:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.
+Challenges Find the Blue Yeti 100 points
+We believe that while one of the ransomware operators was out in public they dropped this USB device." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-07-07T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Target III: USB Forensics"/>
+<meta name="twitter:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.
+Challenges Find the Blue Yeti 100 points
+We believe that while one of the ransomware operators was out in public they dropped this USB device."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://g0ldf15h.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Target III: USB Forensics",
+      "item": "https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Target III: USB Forensics",
+  "name": "Target III: USB Forensics",
+  "description": "Recently I completed Tier 1 of Target\u0026rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.\nChallenges Find the Blue Yeti 100 points\nWe believe that while one of the ransomware operators was out in public they dropped this USB device.",
+  "keywords": [
+    "forensics"
+  ],
+  "articleBody": "Recently I completed Tier 1 of Target’s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.\nChallenges Find the Blue Yeti 100 points\nWe believe that while one of the ransomware operators was out in public they dropped this USB device. While plugging it in to make an image of it, we noticed that it had multiple auto run features. So, we booted up Wireshark and made some PCAPs of the device traffic.\nTo get you used to the layout of searching a PCAP for device information, we will start with you finding the Blue Yeti.\nTODO: Write this\nKnow your Filters! 100 points\nTo help further you further in the next steps, you need to figure out what the filter type is when trying to view a Mass Storage Device in WireShark\nTODO: Write this\nMoving Files 200 points\nThere is a file that transfers when the device is connected to the analysis Virtual Machine. Filter down on the data to figure out what the file is.\nI sorted the pcap by the length of the packet. Then I went through the packets manually until I found a packet with an extension, JFIF, which is a file extension for images. Then I exported the packet bytes to a file I named vibes2 To confirm my hypothesis that it was a image, I ran file and indeed, it was a JPEG image. When I opened it up: Flag: Flag{Not_An0ther_N3twork_Pcap}\nReferences https://vincentkool.github.io/2017-AlexCTF-Fore3/*\nI think this Mouse is Plotting on us? 200 points\nWhen looking over this PCAP’s data it seemed like the mouse is trying to move about the screen on its own within the Virtual Machine we have its attached to. See if you can make any sense of the movements it is doing. Seems like it is plotting on us in some weird way. You can never be too care with these types of investigations.\nBased on the problem description, I had to plot all the mouse movement. If the description didn’t mention that it was concerning mouse movement, the first thing to do would be to check the device by filtering by usb.idVendor and usb.idProduct.\nI noticed that in each packet, there was HID Data, which corresponded to four bytes. HID stands for Human Interface Devices. Since a mouse is a HID, I surmised that this must be the information from the mouse as according to OSDev, a mouse sends 3 or 4 byte packets for mouse movement (x, y) and mouse button press/release events.\nByte 1 - bit flags Byte 2 - X movement Byte 3 - Y movement I exported this data using tshark:\ntshark -r PlottingMouse.pcapng -T fields -e usbhid.data \u003e mouse_movements.txt The important bytes are the 2nd and 3rd byte.\nTo map it out, I found a script online UsbMiceDataHacker.py and modified it to meet my parameters (check the appendix). What’s nice about this script is that it also allows you to isolate certain movements. I ran the command with only showing Left Mouse movements:\nFlag: flag{U_are_1_Clev3r_Cat}\nReferences https://wiki.osdev.org/Mouse_Input#Format_of_First_3_Packet_Bytes https://www.rootusers.com/google-ctf-2016-forensic-for2-write-up/ https://github.com/WangYihang/UsbMiceDataHacker/blob/master/UsbMiceDataHacker.py\nKeypress…? Keypressing…? Keep pressing on! 300 points\nThis PCAP caught the USB acting like a keyboard! It seems to be trying to type something out in the virtual machine, but we can’t make sense of it yet. Review the data and try to figure out what this device is trying to accomplish with all of it’s Keypressing.\nThis was very similar to the mouse plotting challenge. Keyboard data is stored in 8 bytes.\nByte 0 - Keyboard modifier bits (shift, alt, ctrl) Byte 1 - Reserved Byte 2-7 - Keys that are currently being pressed I used a script I found online and modified it to fit my parameters (see appendix), where shift is always being pressed. This was enough to find the flag, but is not the most accurate. When I have time, I want to go back and write my own script from scratch. Flag: flag{I_See_You_F0und_The_Key$}\nReferences https://github.com/mahaloz/ctf-wiki-en/blob/master/docs/misc/traffic/protocols/USB.md https://bitvijays.github.io/LFC-Forensics.html\nhttps://gist.github.com/Rajchowdhury420/49476d46479184f5fd590057ef30bd92\nAppendix I think this Mouse is Plotting on us? Edited script\n#!/usr/bin/env python # coding:utf-8 import sys import os import numpy as np import matplotlib.pyplot as plt mousePositionX = 0 mousePositionY = 0 X = [] Y = [] DataFileName = \"mouse_movement.txt\" data = [] def main(): global mousePositionX global mousePositionY # check argv if len(sys.argv) != 3: print(\"Usage : \") print(\" python UsbMiceHacker.py data.pcap [LEFT|RIGHT|MOVE|ALL]\") print(\"Tips : \") print(\" To use this python script , you must install the numpy,matplotlib first.\") print(\" You can use `sudo pip install matplotlib numpy` to install it\") print(\"Author : \") print(\" WangYihang \") print(\" If you have any questions , please contact me by email.\") print(\" Thank you for using.\") exit(1) # get argv pcapFilePath = sys.argv[1] action = sys.argv[2] if action != \"LEFT\" and action != \"ALL\" and action != \"RIGHT\" and action != \"MOVE\": action = \"LEFT\" # get data of pcap #command = \"tshark -r %s -T fields -e usb.capdata \u003e %s\" % ( #pcapFilePath, DataFileName) #print(command) #os.system(command) # read data with open(DataFileName, \"r\") as f: for line in f: data.append(line[0:-1]) # handle move for i in data: # Bytes = i.split(\":\") Bytes = [] print(i[0:2]) # Bytes.append(1) # Bytes.append(1) # Bytes.append(1) # Bytes.append(1) Bytes.append(i[0:2]) Bytes.append(i[2:4]) Bytes.append(i[4:6]) Bytes.append(i[6:8]) if len(Bytes) == 8: horizontal = 2 # - vertical = 4 # | elif len(Bytes) == 4: horizontal = 1 # - vertical = 2 # | else: continue offsetX = int(Bytes[horizontal], 16) offsetY = int(Bytes[vertical], 16) if offsetX \u003e 127: offsetX -= 256 if offsetY \u003e 127: offsetY -= 256 mousePositionX += offsetX mousePositionY += offsetY if Bytes[0] == \"01\": print(\"[+] Left butten.\") if action == \"LEFT\": # draw point to the image panel X.append(mousePositionX) Y.append(-mousePositionY) elif Bytes[0] == \"02\": print(\"[+] Right Butten.\") if action == \"RIGHT\": # draw point to the image panel X.append(mousePositionX) Y.append(-mousePositionY) elif Bytes[0] == \"00\": print(\"[+] Move.\") if action == \"MOVE\": # draw point to the image panel X.append(mousePositionX) Y.append(-mousePositionY) else: print(\"[-] Known operate.\") pass if action == \"ALL\": # draw point to the image panel X.append(mousePositionX) Y.append(-mousePositionY) fig = plt.figure() ax1 = fig.add_subplot(111) ax1.set_title('[%s]-[%s] Author : WangYihang' % (pcapFilePath, action)) ax1.scatter(X, Y, c='r', marker='o') plt.show() # clean temp data os.system(\"rm ./%s\" % (DataFileName)) if __name__ == \"__main__\": main() Keypress…? Keypressing…? Keep pressing on! usb_codes = { 0x04:\"aA\", 0x05:\"bB\", 0x06:\"cC\", 0x07:\"dD\", 0x08:\"eE\", 0x09:\"fF\", 0x0A:\"gG\", 0x0B:\"hH\", 0x0C:\"iI\", 0x0D:\"jJ\", 0x0E:\"kK\", 0x0F:\"lL\", 0x10:\"mM\", 0x11:\"nN\", 0x12:\"oO\", 0x13:\"pP\", 0x14:\"qQ\", 0x15:\"rR\", 0x16:\"sS\", 0x17:\"tT\", 0x18:\"uU\", 0x19:\"vV\", 0x1A:\"wW\", 0x1B:\"xX\", 0x1C:\"yY\", 0x1D:\"zZ\", 0x1E:\"1!\", 0x1F:\"2@\", 0x20:\"3#\", 0x21:\"4$\", 0x22:\"5%\", 0x23:\"6^\", 0x24:\"7\u0026\", 0x25:\"8*\", 0x26:\"9(\", 0x27:\"0)\", 0x2C:\" \", 0x2D:\"-_\", 0x2E:\"=+\", 0x2F:\"[{\", 0x30:\"]}\", 0x32:\"#~\", 0x33:\";:\", 0x34:\"'\\\"\", 0x36:\",\u003c\", 0x37:\".\u003e\", 0x4f:\"\u003e\", 0x50:\"\u003c\" } lines = [\"\",\"\",\"\",\"\",\"\"] # pos = 0 for x in open(\"key_data.txt\",\"r\").readlines(): code = int(x[6:8],16) if code == 0: continue # newline or down arrow - move down # if (code in usb_codes): # lines[pos] += usb_codes[code][1] if code == 0x51 or code == 0x28: # pos += 1 continue # up arrow - move up if code == 0x52: # pos -= 1 continue # select the character based on the Shift key if (code in usb_codes and int(x[0:2],16)) == 2: print(usb_codes[code][1], end = \"\") elif (code in usb_codes): print(usb_codes[code][0], end = \"\") # for x in lines: # print(x) ",
+  "wordCount" : "1227",
+  "inLanguage": "en",
+  "datePublished": "2023-07-07T00:00:00Z",
+  "dateModified": "2023-07-07T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "goldfish",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://g0ldf15h.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://g0ldf15h.github.io/" accesskey="h" title="goldfish (Alt + H)">goldfish</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://g0ldf15h.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://g0ldf15h.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://g0ldf15h.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Target III: USB Forensics
+    </h1>
+    <div class="post-meta"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#challenges" aria-label="Challenges">Challenges</a><ul>
+                        
+                <li>
+                    <a href="#find-the-blue-yeti" aria-label="Find the Blue Yeti">Find the Blue Yeti</a></li>
+                <li>
+                    <a href="#know-your-filters" aria-label="Know your Filters!">Know your Filters!</a></li>
+                <li>
+                    <a href="#moving-files" aria-label="Moving Files">Moving Files</a><ul>
+                        
+                <li>
+                    <a href="#references" aria-label="References">References</a></li></ul>
+                </li>
+                <li>
+                    <a href="#i-think-this-mouse-is-plotting-on-us" aria-label="I think this Mouse is Plotting on us?">I think this Mouse is Plotting on us?</a><ul>
+                        
+                <li>
+                    <a href="#references-1" aria-label="References">References</a></li></ul>
+                </li>
+                <li>
+                    <a href="#keypress-keypressing-keep-pressing-on" aria-label="Keypress&amp;hellip;? Keypressing&amp;hellip;? Keep pressing on!">Keypress&hellip;? Keypressing&hellip;? Keep pressing on!</a><ul>
+                        
+                <li>
+                    <a href="#references-2" aria-label="References">References</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#appendix" aria-label="Appendix">Appendix</a><ul>
+                        
+                <li>
+                    <a href="#i-think-this-mouse-is-plotting-on-us-1" aria-label="I think this Mouse is Plotting on us?">I think this Mouse is Plotting on us?</a></li>
+                <li>
+                    <a href="#keypress-keypressing-keep-pressing-on-1" aria-label="Keypress&amp;hellip;? Keypressing&amp;hellip;? Keep pressing on!">Keypress&hellip;? Keypressing&hellip;? Keep pressing on!</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.</p>
+<h1 id="challenges">Challenges<a hidden class="anchor" aria-hidden="true" href="#challenges">#</a></h1>
+<h2 id="find-the-blue-yeti">Find the Blue Yeti<a hidden class="anchor" aria-hidden="true" href="#find-the-blue-yeti">#</a></h2>
+<p>100 points</p>
+<blockquote>
+<p>We believe that while one of the ransomware operators was out in public they dropped this USB device. While plugging it in to make an image of it, we noticed that it had multiple auto run features. So, we booted up Wireshark and made some PCAPs of the device traffic.</p>
+<p>To get you used to the layout of searching a PCAP for device information, we will start with you finding the Blue Yeti.</p>
+</blockquote>
+<p><em>TODO: Write this</em></p>
+<h2 id="know-your-filters">Know your Filters!<a hidden class="anchor" aria-hidden="true" href="#know-your-filters">#</a></h2>
+<p>100 points</p>
+<blockquote>
+<p>To help further you further in the next steps, you need to figure out what the filter type is when trying to view a Mass Storage Device in WireShark</p>
+</blockquote>
+<p><em>TODO: Write this</em></p>
+<h2 id="moving-files">Moving Files<a hidden class="anchor" aria-hidden="true" href="#moving-files">#</a></h2>
+<p>200 points</p>
+<blockquote>
+<p>There is a file that transfers when the device is connected to the analysis Virtual Machine. Filter down on the data to figure out what the file is.</p>
+</blockquote>
+<p>I sorted the pcap by the length of the packet. Then I went through the packets manually until I found a packet with an extension, <code>JFIF</code>, which is a file extension for images.
+<img loading="lazy" src="content/posts/target_ctf/tier1/target3/jfifpacket.png" alt="image"  />
+</p>
+<p>Then I exported the packet bytes to a file I named <code>vibes2</code>
+To confirm my hypothesis that it was a image, I ran <code>file</code> and indeed, it was a JPEG image.
+<img loading="lazy" src="content/posts/target_ctf/tier1/target3/vibes2image.png" alt="image"  />
+
+When I opened it up:
+<img loading="lazy" src="content/posts/target_ctf/tier1/target3/flagpotato.png" alt="image"  />
+</p>
+<p>Flag: <code>Flag{Not_An0ther_N3twork_Pcap}</code></p>
+<h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
+<p><a href="https://vincentkool.github.io/2017-AlexCTF-Fore3/">https://vincentkool.github.io/2017-AlexCTF-Fore3/</a>*</p>
+<h2 id="i-think-this-mouse-is-plotting-on-us">I think this Mouse is Plotting on us?<a hidden class="anchor" aria-hidden="true" href="#i-think-this-mouse-is-plotting-on-us">#</a></h2>
+<p>200 points</p>
+<blockquote>
+<p>When looking over this PCAP&rsquo;s data it seemed like the mouse is trying to move about the screen on its own within the Virtual Machine we have its attached to. See if you can make any sense of the movements it is doing. Seems like it is plotting on us in some weird way. You can never be too care with these types of investigations.</p>
+</blockquote>
+<p>Based on the problem description, I had to plot all the mouse movement. If the description didn&rsquo;t mention that it was concerning mouse movement, the first thing to do would be to check the device by filtering by <code>usb.idVendor</code> and <code>usb.idProduct</code>.</p>
+<p>I noticed that in each packet, there was <code>HID Data</code>, which corresponded to four bytes.
+<img loading="lazy" src="content/posts/target_ctf/tier1/target3/hiddataimage.png" alt="image"  />
+
+<code>HID</code> stands for Human Interface Devices. Since a mouse is a <code>HID</code>, I surmised that this must be the information from the mouse as according to OSDev, a mouse sends 3 or 4 byte packets for mouse movement (x, y) and mouse button press/release events.</p>
+<pre tabindex="0"><code>Byte 1 - bit flags
+Byte 2 - X movement
+Byte 3 - Y movement
+</code></pre><p>I exported this data using <code>tshark</code>:</p>
+<pre tabindex="0"><code>tshark -r PlottingMouse.pcapng -T fields -e usbhid.data &gt; mouse_movements.txt
+</code></pre><p>The important bytes are the 2nd and 3rd byte.</p>
+<p>To map it out, I found a script online <code>UsbMiceDataHacker.py</code> and modified it to meet my parameters (check the appendix). What&rsquo;s nice about this script is that it also allows you to isolate certain movements. I ran the command with only showing Left Mouse movements:</p>
+<p><img loading="lazy" src="content/posts/target_ctf/tier1/target3/mousefalg.png" alt="image"  />
+</p>
+<p>Flag: <code>flag{U_are_1_Clev3r_Cat}</code></p>
+<h3 id="references-1">References<a hidden class="anchor" aria-hidden="true" href="#references-1">#</a></h3>
+<p><a href="https://wiki.osdev.org/Mouse_Input#Format_of_First_3_Packet_Bytes">https://wiki.osdev.org/Mouse_Input#Format_of_First_3_Packet_Bytes</a>
+<a href="https://www.rootusers.com/google-ctf-2016-forensic-for2-write-up/">https://www.rootusers.com/google-ctf-2016-forensic-for2-write-up/</a>
+<a href="https://github.com/WangYihang/UsbMiceDataHacker/blob/master/UsbMiceDataHacker.py">https://github.com/WangYihang/UsbMiceDataHacker/blob/master/UsbMiceDataHacker.py</a></p>
+<h2 id="keypress-keypressing-keep-pressing-on">Keypress&hellip;? Keypressing&hellip;? Keep pressing on!<a hidden class="anchor" aria-hidden="true" href="#keypress-keypressing-keep-pressing-on">#</a></h2>
+<p>300 points</p>
+<blockquote>
+<p>This PCAP caught the USB acting like a keyboard! It seems to be trying to type something out in the virtual machine, but we can&rsquo;t make sense of it yet. Review the data and try to figure out what this device is trying to accomplish with all of it&rsquo;s Keypressing.</p>
+</blockquote>
+<p>This was very similar to the mouse plotting challenge. Keyboard data is stored in 8 bytes.</p>
+<pre tabindex="0"><code>Byte 0 - Keyboard modifier bits (shift, alt, ctrl)
+Byte 1 - Reserved
+Byte 2-7 - Keys that are currently being pressed
+</code></pre><p>I used a script I found online and modified it to fit my parameters (see appendix), where shift is always being pressed. This was enough to find the flag, but is not the most accurate. When I have time, I want to go back and write my own script from scratch.
+<img loading="lazy" src="content/posts/target_ctf/tier1/target3/keypressingsus.png" alt="images"  />
+</p>
+<p>Flag: <code>flag{I_See_You_F0und_The_Key$}</code></p>
+<h3 id="references-2">References<a hidden class="anchor" aria-hidden="true" href="#references-2">#</a></h3>
+<p><a href="https://github.com/mahaloz/ctf-wiki-en/blob/master/docs/misc/traffic/protocols/USB.md">https://github.com/mahaloz/ctf-wiki-en/blob/master/docs/misc/traffic/protocols/USB.md</a>
+<a href="https://bitvijays.github.io/LFC-Forensics.html">https://bitvijays.github.io/LFC-Forensics.html</a></p>
+<p><a href="https://gist.github.com/Rajchowdhury420/49476d46479184f5fd590057ef30bd92">https://gist.github.com/Rajchowdhury420/49476d46479184f5fd590057ef30bd92</a></p>
+<h1 id="appendix">Appendix<a hidden class="anchor" aria-hidden="true" href="#appendix">#</a></h1>
+<h2 id="i-think-this-mouse-is-plotting-on-us-1">I think this Mouse is Plotting on us?<a hidden class="anchor" aria-hidden="true" href="#i-think-this-mouse-is-plotting-on-us-1">#</a></h2>
+<p>Edited script</p>
+<pre tabindex="0"><code>#!/usr/bin/env python
+# coding:utf-8
+
+import sys
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
+mousePositionX = 0
+mousePositionY = 0
+
+X = []
+Y = []
+
+DataFileName = &#34;mouse_movement.txt&#34;
+data = []
+
+def main():
+    global mousePositionX
+    global mousePositionY
+    # check argv
+    if len(sys.argv) != 3:
+        print(&#34;Usage : &#34;)
+        print(&#34;        python UsbMiceHacker.py data.pcap [LEFT|RIGHT|MOVE|ALL]&#34;)
+        print(&#34;Tips : &#34;)
+        print(&#34;        To use this python script , you must install the numpy,matplotlib first.&#34;)
+        print(&#34;        You can use `sudo pip install matplotlib numpy` to install it&#34;)
+        print(&#34;Author : &#34;)
+        print(&#34;        WangYihang &lt;wangyihanger@gmail.com&gt;&#34;)
+        print(&#34;        If you have any questions , please contact me by email.&#34;)
+        print(&#34;        Thank you for using.&#34;)
+        exit(1)
+
+    # get argv
+    pcapFilePath = sys.argv[1]
+    action = sys.argv[2]
+
+    if action != &#34;LEFT&#34; and action != &#34;ALL&#34; and action != &#34;RIGHT&#34; and action != &#34;MOVE&#34;:
+        action = &#34;LEFT&#34;
+
+    # get data of pcap
+    #command = &#34;tshark -r %s -T fields -e usb.capdata &gt; %s&#34; % (
+        #pcapFilePath, DataFileName)
+    #print(command)
+    #os.system(command)
+
+    # read data
+    with open(DataFileName, &#34;r&#34;) as f:
+        for line in f:
+            data.append(line[0:-1])
+
+    # handle move
+    for i in data:
+        # Bytes = i.split(&#34;:&#34;)
+        Bytes = []
+        print(i[0:2])
+        # Bytes.append(1)
+        # Bytes.append(1)
+        # Bytes.append(1)
+        # Bytes.append(1)
+        Bytes.append(i[0:2])
+        Bytes.append(i[2:4])
+        Bytes.append(i[4:6])
+        Bytes.append(i[6:8])
+        if len(Bytes) == 8:
+            horizontal = 2  # -
+            vertical = 4  # |
+        elif len(Bytes) == 4:
+            horizontal = 1  # -
+            vertical = 2  # |
+        else:
+            continue
+        offsetX = int(Bytes[horizontal], 16)
+        offsetY = int(Bytes[vertical], 16)
+        if offsetX &gt; 127:
+            offsetX -= 256
+        if offsetY &gt; 127:
+            offsetY -= 256
+        mousePositionX += offsetX
+        mousePositionY += offsetY
+        if Bytes[0] == &#34;01&#34;:
+            print(&#34;[+] Left butten.&#34;)
+            if action == &#34;LEFT&#34;:
+                # draw point to the image panel
+                X.append(mousePositionX)
+                Y.append(-mousePositionY)
+        elif Bytes[0] == &#34;02&#34;:
+            print(&#34;[+] Right Butten.&#34;)
+            if action == &#34;RIGHT&#34;:
+                # draw point to the image panel
+                X.append(mousePositionX)
+                Y.append(-mousePositionY)
+        elif Bytes[0] == &#34;00&#34;:
+            print(&#34;[+] Move.&#34;)
+            if action == &#34;MOVE&#34;:
+                # draw point to the image panel
+                X.append(mousePositionX)
+                Y.append(-mousePositionY)
+        else:
+            print(&#34;[-] Known operate.&#34;)
+            pass
+        if action == &#34;ALL&#34;:
+            # draw point to the image panel
+            X.append(mousePositionX)
+            Y.append(-mousePositionY)
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+
+    ax1.set_title(&#39;[%s]-[%s] Author : WangYihang&#39; % (pcapFilePath, action))
+    ax1.scatter(X, Y, c=&#39;r&#39;, marker=&#39;o&#39;)
+    plt.show()
+
+    # clean temp data
+    os.system(&#34;rm ./%s&#34; % (DataFileName))
+
+if __name__ == &#34;__main__&#34;:
+    main()
+</code></pre><h2 id="keypress-keypressing-keep-pressing-on-1">Keypress&hellip;? Keypressing&hellip;? Keep pressing on!<a hidden class="anchor" aria-hidden="true" href="#keypress-keypressing-keep-pressing-on-1">#</a></h2>
+<pre tabindex="0"><code>usb_codes = {
+   0x04:&#34;aA&#34;, 0x05:&#34;bB&#34;, 0x06:&#34;cC&#34;, 0x07:&#34;dD&#34;, 0x08:&#34;eE&#34;, 0x09:&#34;fF&#34;,
+   0x0A:&#34;gG&#34;, 0x0B:&#34;hH&#34;, 0x0C:&#34;iI&#34;, 0x0D:&#34;jJ&#34;, 0x0E:&#34;kK&#34;, 0x0F:&#34;lL&#34;,
+   0x10:&#34;mM&#34;, 0x11:&#34;nN&#34;, 0x12:&#34;oO&#34;, 0x13:&#34;pP&#34;, 0x14:&#34;qQ&#34;, 0x15:&#34;rR&#34;,
+   0x16:&#34;sS&#34;, 0x17:&#34;tT&#34;, 0x18:&#34;uU&#34;, 0x19:&#34;vV&#34;, 0x1A:&#34;wW&#34;, 0x1B:&#34;xX&#34;,
+   0x1C:&#34;yY&#34;, 0x1D:&#34;zZ&#34;, 0x1E:&#34;1!&#34;, 0x1F:&#34;2@&#34;, 0x20:&#34;3#&#34;, 0x21:&#34;4$&#34;,
+   0x22:&#34;5%&#34;, 0x23:&#34;6^&#34;, 0x24:&#34;7&amp;&#34;, 0x25:&#34;8*&#34;, 0x26:&#34;9(&#34;, 0x27:&#34;0)&#34;,
+   0x2C:&#34;  &#34;, 0x2D:&#34;-_&#34;, 0x2E:&#34;=+&#34;, 0x2F:&#34;[{&#34;, 0x30:&#34;]}&#34;,  0x32:&#34;#~&#34;,
+   0x33:&#34;;:&#34;, 0x34:&#34;&#39;\&#34;&#34;,  0x36:&#34;,&lt;&#34;,  0x37:&#34;.&gt;&#34;, 0x4f:&#34;&gt;&#34;, 0x50:&#34;&lt;&#34;
+   }
+lines = [&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;,&#34;&#34;]
+
+# pos = 0
+for x in open(&#34;key_data.txt&#34;,&#34;r&#34;).readlines():
+   code = int(x[6:8],16)
+
+   if code == 0:
+       continue
+   # newline or down arrow - move down
+   
+#    if (code in usb_codes): 
+#        lines[pos] += usb_codes[code][1]
+   if code == 0x51 or code == 0x28:
+    #    pos += 1
+       continue
+   # up arrow - move up
+   if code == 0x52:
+    #    pos -= 1
+       continue
+   # select the character based on the Shift key
+   if (code in usb_codes and int(x[0:2],16)) == 2:
+       print(usb_codes[code][1], end = &#34;&#34;)
+   elif (code in usb_codes):
+       print(usb_codes[code][0], end = &#34;&#34;)
+
+
+# for x in lines:
+#    print(x)
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://g0ldf15h.github.io/tags/forensics/">forensics</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Target II: Reverse Engineering</span>
+  </a>
+  <a class="next" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Target IV: Cyber Threat Intelligence</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://g0ldf15h.github.io/">goldfish</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

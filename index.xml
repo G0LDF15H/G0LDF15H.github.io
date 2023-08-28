@@ -6,13 +6,77 @@
     <description>Recent content on goldfish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bash Scripting Notes</title>
+      <link>https://g0ldf15h.github.io/posts/dev_notes/bash-scripting/</link>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/dev_notes/bash-scripting/</guid>
+      <description>Basics Starting the script Shebang: #! : used by the shell to decide which interpreter to run the rest of the script
+Starts with a &amp;ldquo;shebang&amp;rdquo; #! and path to shell you want script to use #!/bin/bash Executing the script Assign execution rights to user: chmod u+x &amp;lt;file&amp;gt;.sh chmod &amp;ndash;&amp;gt; modifies ownership of a file for the current user: u +x &amp;ndash;&amp;gt; execution rights Variables and data types Every variable is an array so can start using any variable as an array.</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Notes</title>
+      <link>https://g0ldf15h.github.io/posts/dev_notes/c&#43;&#43;-notes/</link>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/dev_notes/c&#43;&#43;-notes/</guid>
+      <description>Just a random sort of notes as I encounter things in C++
+Command Line Arguments https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
+Command line arguments: values given after the name of the program in the command-line shell of OS. Handled by main
+argc (argument count): number of command-line arguments
+Non- negative argv (argument vector): array of character pointers listing all the arguments
+argv[0] name of the program -argv[1] points to the first command line argument Compiling with g++ https://natekohl.</description>
+    </item>
+    
+    <item>
+      <title>Pwn College: Program Misuse</title>
+      <link>https://g0ldf15h.github.io/posts/pwn_college/program_misuse/</link>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/pwn_college/program_misuse/</guid>
+      <description>Privilege escalation Run an suid binary suid: execute with the eUID of the file owner rather than the parent process sgid: execute with the eGID of file owner rather than parent process sticky: used for shared directories to limit file removal to file owners babysuid Programs that let you directly read the flag by setting the suid
+Archives 22 cpio https://www.computerhope.com/unix/ucpio.htm#Copy-Out-Mode cpio: copy files to and from archives
+-R Set the ownership of all files created to the specified USER and/or GROUP --to-std-out</description>
+    </item>
+    
+    <item>
+      <title>Python Notes</title>
+      <link>https://g0ldf15h.github.io/posts/dev_notes/python/</link>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/dev_notes/python/</guid>
+      <description>Writing to file Creating a new file f = open(&amp;ldquo;filename.txt&amp;rdquo;, &amp;ldquo;x&amp;rdquo;)
+Reading from a file File_object = open(r&amp;quot;File_Name&amp;quot;, &amp;ldquo;Access_Mode&amp;rdquo;)
+Conversion Converting from byte to int int.from_bytes(num, endianess (&amp;quot;big&amp;quot; or &amp;quot;little&amp;quot;))
+Converting from byte to hex byte.hex()
+From hex to byte bytes.fromhex(HEX)
+Creating a class self &amp;ndash;&amp;gt; this in java
+https://www.w3schools.com/python/python_classes.asp https://stackoverflow.com/questions/141545/how-to-overload-init-method-based-on-argument-type</description>
+    </item>
+    
+    <item>
+      <title>Target Tier 2</title>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/</link>
+      <pubDate>Fri, 14 Jul 2023 08:41:21 -0500</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/</guid>
+      <description>Incomplete; Probably won&amp;rsquo;t finish
+Checkpoint 1: &amp;ldquo;Air-gapped&amp;rdquo; Points 10
+The FBI infiltrated SHINY SCORPION&amp;rsquo;s command &amp;amp; control network!
+They&amp;rsquo;ve passed along the victim database related to the campaign that targeted Keep it Simple Security (KiSSec). They&amp;rsquo;ve also included a Python script that can deobfuscate and parse the ransomware config.
+FBI intelligence indicates that it should be possible to undo the ransomware&amp;rsquo;s encryption using the information stored in these files!
+Before we start any decryption, though, they suggest finding our unique victim ID.</description>
+    </item>
+    
     <item>
       <title>Target I: Cryptography and Steganography</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target1/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target1/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
 Beware the Ides of March 100 points
 You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:</description>
@@ -20,19 +84,19 @@ You have intercepted the following message from the threat actor! Decrypt the me
     
     <item>
       <title>Target II: Reverse Engineering</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target2/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target2/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this second part, I will go over the challenges in the reverse engineering section. In my opinion, this was the most technical challenge as knowledge of basic assembly (x86) and the C programming language was required.</description>
     </item>
     
     <item>
       <title>Target III: USB Forensics</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target3/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target3/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.
 Challenges Find the Blue Yeti 100 points
 We believe that while one of the ransomware operators was out in public they dropped this USB device.</description>
@@ -40,10 +104,10 @@ We believe that while one of the ransomware operators was out in public they dro
     
     <item>
       <title>Target IV: Cyber Threat Intelligence</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target4/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target4/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.
 NOTE: Some of these flags may be slightly off because I didn&amp;rsquo;t actually record the exact string that worked, but the process should be around the same</description>
     </item>

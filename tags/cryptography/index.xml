@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Target I: Cryptography and Steganography</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target1/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target1/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
 Beware the Ides of March 100 points
 You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:</description>

@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Target I: Cryptography and Steganography</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target1/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target1/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
 Beware the Ides of March 100 points
 You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:</description>
@@ -20,19 +20,19 @@ You have intercepted the following message from the threat actor! Decrypt the me
     
     <item>
       <title>Target II: Reverse Engineering</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target2/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target2/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this second part, I will go over the challenges in the reverse engineering section. In my opinion, this was the most technical challenge as knowledge of basic assembly (x86) and the C programming language was required.</description>
     </item>
     
     <item>
       <title>Target III: USB Forensics</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target3/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target3/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this third part, I will go over the challenges in the USB forensics section.
 Challenges Find the Blue Yeti 100 points
 We believe that while one of the ransomware operators was out in public they dropped this USB device.</description>
@@ -40,10 +40,10 @@ We believe that while one of the ransomware operators was out in public they dro
     
     <item>
       <title>Target IV: Cyber Threat Intelligence</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target4/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target4/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this fourth part, I will go over the challenges in the Cyber Threat Intelligence.
 NOTE: Some of these flags may be slightly off because I didn&amp;rsquo;t actually record the exact string that worked, but the process should be around the same</description>
     </item>

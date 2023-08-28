@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.115.1"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.117.0"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -180,6 +180,85 @@ if (!doNotTrack) {
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>Bash Scripting Notes
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Basics Starting the script Shebang: #! : used by the shell to decide which interpreter to run the rest of the script
+Starts with a “shebang” #! and path to shell you want script to use #!/bin/bash Executing the script Assign execution rights to user: chmod u&#43;x &lt;file&gt;.sh chmod –&gt; modifies ownership of a file for the current user: u &#43;x –&gt; execution rights Variables and data types Every variable is an array so can start using any variable as an array....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 00:00:00 +0000 UTC'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to Bash Scripting Notes" href="https://g0ldf15h.github.io/posts/dev_notes/bash-scripting/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>C&#43;&#43; Notes
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Just a random sort of notes as I encounter things in C&#43;&#43;
+Command Line Arguments https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
+Command line arguments: values given after the name of the program in the command-line shell of OS. Handled by main
+argc (argument count): number of command-line arguments
+Non- negative argv (argument vector): array of character pointers listing all the arguments
+argv[0] name of the program -argv[1] points to the first command line argument Compiling with g&#43;&#43; https://natekohl....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 00:00:00 +0000 UTC'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to C&#43;&#43; Notes" href="https://g0ldf15h.github.io/posts/dev_notes/c&#43;&#43;-notes/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Pwn College: Program Misuse
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Privilege escalation Run an suid binary suid: execute with the eUID of the file owner rather than the parent process sgid: execute with the eGID of file owner rather than parent process sticky: used for shared directories to limit file removal to file owners babysuid Programs that let you directly read the flag by setting the suid
+Archives 22 cpio https://www.computerhope.com/unix/ucpio.htm#Copy-Out-Mode cpio: copy files to and from archives
+-R Set the ownership of all files created to the specified USER and/or GROUP --to-std-out...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 00:00:00 +0000 UTC'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to Pwn College: Program Misuse" href="https://g0ldf15h.github.io/posts/pwn_college/program_misuse/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Python Notes
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Writing to file Creating a new file f = open(“filename.txt”, “x”)
+Reading from a file File_object = open(r&#34;File_Name&#34;, “Access_Mode”)
+Conversion Converting from byte to int int.from_bytes(num, endianess (&#34;big&#34; or &#34;little&#34;))
+Converting from byte to hex byte.hex()
+From hex to byte bytes.fromhex(HEX)
+Creating a class self –&gt; this in java
+https://www.w3schools.com/python/python_classes.asp https://stackoverflow.com/questions/141545/how-to-overload-init-method-based-on-argument-type</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-08-01 00:00:00 +0000 UTC'>August 1, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to Python Notes" href="https://g0ldf15h.github.io/posts/dev_notes/python/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Target Tier 2
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Incomplete; Probably won’t finish
+Checkpoint 1: “Air-gapped” Points 10
+The FBI infiltrated SHINY SCORPION’s command &amp; control network!
+They’ve passed along the victim database related to the campaign that targeted Keep it Simple Security (KiSSec). They’ve also included a Python script that can deobfuscate and parse the ransomware config.
+FBI intelligence indicates that it should be possible to undo the ransomware’s encryption using the information stored in these files!
+Before we start any decryption, though, they suggest finding our unique victim ID....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-14 08:41:21 -0500 CDT'>July 14, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to Target Tier 2" href="https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Target I: Cryptography and Steganography
     </h2>
   </header>
@@ -189,7 +268,7 @@ Beware the Ides of March 100 points
 You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:...</p>
   </div>
   <footer class="entry-footer"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Target I: Cryptography and Steganography" href="https://g0ldf15h.github.io/posts/target_ctf/target1/"></a>
+  <a class="entry-link" aria-label="post link to Target I: Cryptography and Steganography" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -201,7 +280,7 @@ You have intercepted the following message from the threat actor! Decrypt the me
     <p>Recently I completed Tier 1 of Target’s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this second part, I will go over the challenges in the reverse engineering section. In my opinion, this was the most technical challenge as knowledge of basic assembly (x86) and the C programming language was required....</p>
   </div>
   <footer class="entry-footer"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Target II: Reverse Engineering" href="https://g0ldf15h.github.io/posts/target_ctf/target2/"></a>
+  <a class="entry-link" aria-label="post link to Target II: Reverse Engineering" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -215,7 +294,7 @@ Challenges Find the Blue Yeti 100 points
 We believe that while one of the ransomware operators was out in public they dropped this USB device....</p>
   </div>
   <footer class="entry-footer"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Target III: USB Forensics" href="https://g0ldf15h.github.io/posts/target_ctf/target3/"></a>
+  <a class="entry-link" aria-label="post link to Target III: USB Forensics" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -228,7 +307,7 @@ We believe that while one of the ransomware operators was out in public they dro
 NOTE: Some of these flags may be slightly off because I didn’t actually record the exact string that worked, but the process should be around the same...</p>
   </div>
   <footer class="entry-footer"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Target IV: Cyber Threat Intelligence" href="https://g0ldf15h.github.io/posts/target_ctf/target4/"></a>
+  <a class="entry-link" aria-label="post link to Target IV: Cyber Threat Intelligence" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target4/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -248,19 +327,12 @@ hugo -t [name of theme] cd public/ git add . git commit -m &#34;[message]&#34; g
   <footer class="entry-footer"><span title='2023-07-04 13:51:28 -0500 CDT'>July 4, 2023</span></footer>
   <a class="entry-link" aria-label="post link to Website notes" href="https://g0ldf15h.github.io/posts/website_notes/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Hello world
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Obligatory first post :3
-Hi I’m Goldfish 🐠 🫧!</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-06-30 23:09:36 -0500 CDT'>June 30, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to Hello world" href="https://g0ldf15h.github.io/posts/hello_world/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://g0ldf15h.github.io/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

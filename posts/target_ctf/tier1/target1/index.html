@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Target I: Cryptography and Steganography | goldfish</title>
+<meta name="keywords" content="cryptography, steganography">
+<meta name="description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
+Beware the Ides of March 100 points
+You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:">
+<meta name="author" content="">
+<link rel="canonical" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3613efbd0b1772781e8f49935e973cae632a7f61471c05b17be155505ccf87b5.css" integrity="sha256-NhPvvQsXcngej0mTXpc8rmMqf2FHHAWxe&#43;FVUFzPh7U=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://g0ldf15h.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://g0ldf15h.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://g0ldf15h.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://g0ldf15h.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://g0ldf15h.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YD66GB1T4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8YD66GB1T4', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Target I: Cryptography and Steganography" />
+<meta property="og:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
+Beware the Ides of March 100 points
+You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-07-07T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Target I: Cryptography and Steganography"/>
+<meta name="twitter:description" content="Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.
+Beware the Ides of March 100 points
+You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://g0ldf15h.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Target I: Cryptography and Steganography",
+      "item": "https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Target I: Cryptography and Steganography",
+  "name": "Target I: Cryptography and Steganography",
+  "description": "Recently I completed Tier 1 of Target\u0026rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.\nBeware the Ides of March 100 points\nYou have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:",
+  "keywords": [
+    "cryptography", "steganography"
+  ],
+  "articleBody": "Recently I completed Tier 1 of Target’s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.\nBeware the Ides of March 100 points\nYou have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:\nGUR GNETRG UNF ORRA NPDHVERQ\nThe Ides of March is associated with the assassination of Julius Caesar, who is also the namesake of the Caesar Cipher (ROT13). It is a substitution cipher in which the letters are rotated by a certain amount (the key).\nI put it in CyberChef.\nFlag: THE TARGET HAS BEEN ACQUIRED\nNow You See Me, Now You Don’t 200 points\nYou have intercepted a email sent between Bob and Alice, who we believe to be members of Shiny Scorpion. See a transcription of the message below:\nHi Bob,\nOur good friend Vigenère is looking to follow up on the financial reports you’re working on. Can you give me a timeline on when you think they would be ready to share out?\nBest, Alice\nThere doesn’t look to be anything malicious in the email, but the embedded photo in the email hit the automated threat detection. Can you find the true message of the email?\nTODO: Go more in depth on identifying and what is LSB Steg Attached image: The attached image was a simple image of a scorpion. This tipped me off that there was some sort of steganography involved as there was nothing obvious in plain sight. To inspect the image, I used stegsolve. However, there are other online alternatives that work just as well such as https://stegonline.georgeom.net/ or https://www.aperisolve.com/.\nWith the filter, I noticed that there was some interesting bits at the top of the image, which was an indicator that there may be some data embedded in the least significant bit. LSB steganography is the concept in which the least significant bit is replaced with the data to be hidden.\nI ran zsteg to extract the LSB: KaierljsipvgbediecsvhrrscaEvvqyq=====\nI used the Vigenère cipher, as hinted by the challenge description, to decrypt the string. I knew that the cipher used a key, so I wondered if there was another component in which the key was hidden. However, after searching, I couldn’t find anything, so I tried the name of the ransomware gang, shinyscorpion, which worked!\nFlag: Start the ransomware attack on Monday\nA Snowy Disposition 200\nYou’ve gained access to a suspected Shiny Scorpion drop file! But, before you can analyze it for malware, you must figure out the password to file so that you can view it in a containment VM. The only thing to give you a hint is a poem included in the same directory as the Shiny Scorpion dropfile. Maybe you can find a clue?\nThe file given was a poem of Spellbound by Emily Brontë. At first, I couldn’t tell if any thing was off about it. Then, on further inspection, it seemed like there were extra spaces at the end of each line of the poem. I tried counting all the whitespaces and converting from ASCII to characters, but to no avail. This led me to research whitespace steganography and I thought that it could be using stegsnow because of the name of the challenge. However, it was simpler than it appeared. Seems like all it took was counting all the whitespaces, as I had not accounted for the spaces between the words.\nI also made a really small script to count the whitespaces because I didn’t want to manually count it:\nfor line in text: count = 0 for char in line: if char == \" \": count+=1 print(count, end = \" \") \u003e 81 85 49 88 48 84 49 67 65 76 76 89 When we convert that to ASCII, we get the flag.\nFlag: QU1X0T1CALLY\nFollow the Dotted Line 200\nThe following message was found in a packet capture file originating from a device that is suspected to be associated with the Shiny Scorpion malware group. Can you find the hidden message?\n.–.- –… –.– -…- -.-.- —– -..– -.—\nLabor Day sale!\nYou won’t want to miss this! We’re putting on our biggest Labor Day sale yet. Mark your calendars to bring home the bacon with these unbelievable savings!\n.—. -.— -..– -…- -.-.- —– —.- –.–\nAt first, the dots and dashes made the cipher look like Morse code. However, upon trying Morse Code, the plaintext that came out didn’t seem right. On further analysis, I saw that the word ‘bacon’ was marked in red. I recall doing a prior CTF challenge with the baconian cipher. The baconian cipher works by taking two symbols such as A and B and creating encodings with those two binary symbols with a length of 5. The cipher matched this behavior, so it was simply a matter of decoding the baconian cipher.\nThis wasn’t necessary, but I made a simple script to convert the dots and dashes to As and Bs:\ns = \".--.- --... --.-- -...- -.-.- ----- -..-- -.--- .---. -.--- -..-- -...- -.-.- ----- ---.- --.--\" for l in s: if l == \".\": print(\"A\", end=\"\") elif l == \"-\": print(\"B\", end=\"\") else: print(\" \", end=\"\") Then it was just a matter of putting it in CyberChef.\nFlag: THEPLANISINPLACE\nA Particular Exchange 300\nThe below email has been intercepted and Threat Intellegence believes that the proof of the infiltration of Shiny Scorpion into the organization can be extracted somewhere in this email. Can you find the shared information?\nHi Bob,\nAs you may have heard from Director Diffie-Hellman, there is going to be a party to support inter-team communication. Can you arrange to have nine orders of papaya salad, seven orders of the grape pastries, six dozen apples, and eight loaves of banana bread?\nThe shared information is of the upmost importance.\nThanks, Alice\nTODO: explain Diffie-Hellman better\nThis was a simple Diffie-Hellman key exchange problem. Seems like there was supposed to be more to it, but was taken out.\nFrom the description: Prime number P = 9\nGenerator number G = 7\nPrivate key (secret number) a = 6\nPrivate key (secret number) b = 8\nYou can manually count it or put it in a shared key calculator such as https://www.dcode.fr/diffie-hellman-key-exchange\nThe calculation (credit to the above link) is as follows:\nPublic Key A = G^a%P = 7^6%9 = 1\nPublic Key A = G^b%P = 7^8%9 = 4\nSecret S = B^a%P = A^b%P = 1\nFlag: 1\n",
+  "wordCount" : "1116",
+  "inLanguage": "en",
+  "datePublished": "2023-07-07T00:00:00Z",
+  "dateModified": "2023-07-07T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "goldfish",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://g0ldf15h.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://g0ldf15h.github.io/" accesskey="h" title="goldfish (Alt + H)">goldfish</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://g0ldf15h.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://g0ldf15h.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://g0ldf15h.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Target I: Cryptography and Steganography
+    </h1>
+    <div class="post-meta"><span title='2023-07-07 00:00:00 +0000 UTC'>July 7, 2023</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#beware-the-ides-of-march" aria-label="Beware the Ides of March">Beware the Ides of March</a></li>
+                <li>
+                    <a href="#now-you-see-me-now-you-dont" aria-label="Now You See Me, Now You Don&amp;rsquo;t">Now You See Me, Now You Don&rsquo;t</a></li>
+                <li>
+                    <a href="#a-snowy-disposition" aria-label="A Snowy Disposition">A Snowy Disposition</a></li>
+                <li>
+                    <a href="#follow-the-dotted-line" aria-label="Follow the Dotted Line">Follow the Dotted Line</a></li>
+                <li>
+                    <a href="#a-particular-exchange" aria-label="A Particular Exchange">A Particular Exchange</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Recently I completed Tier 1 of Target&rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this first part, I will go over the challenges in the cryptography / steganography section.</p>
+<h2 id="beware-the-ides-of-march">Beware the Ides of March<a hidden class="anchor" aria-hidden="true" href="#beware-the-ides-of-march">#</a></h2>
+<p>100 points</p>
+<blockquote>
+<p>You have intercepted the following message from the threat actor! Decrypt the message to reveal the secret phrase:</p>
+<p><code>GUR GNETRG UNF ORRA NPDHVERQ</code></p>
+</blockquote>
+<p>The Ides of March is associated with the assassination of Julius Caesar, who is also the namesake of the Caesar Cipher (ROT13). It is a substitution cipher in which the letters are rotated by a certain amount (the key).</p>
+<p>I put it in CyberChef.</p>
+<p>Flag: <code>THE TARGET HAS BEEN ACQUIRED</code></p>
+<h2 id="now-you-see-me-now-you-dont">Now You See Me, Now You Don&rsquo;t<a hidden class="anchor" aria-hidden="true" href="#now-you-see-me-now-you-dont">#</a></h2>
+<p>200 points</p>
+<blockquote>
+<p>You have intercepted a email sent between Bob and Alice, who we believe to be members of Shiny Scorpion. See a transcription of the message below:</p>
+<hr>
+<p>Hi Bob,</p>
+<p>Our good friend Vigenère is looking to follow up on the financial reports you&rsquo;re working on. Can you give me a timeline on when you think they would be ready to share out?</p>
+<p>Best, Alice</p>
+<hr>
+<p>There doesn&rsquo;t look to be anything malicious in the email, but the embedded photo in the email hit the automated threat detection. Can you find the true message of the email?</p>
+</blockquote>
+<p><em>TODO: Go more in depth on identifying and what is LSB Steg</em>
+Attached image:
+<img loading="lazy" src="content/posts/target_ctf/tier1/target1/images/email_scorpion.png" alt="image"  />
+</p>
+<p>The attached image was a simple image of a scorpion. This tipped me off that there was some sort of steganography involved as there was nothing obvious in plain sight. To inspect the image, I used <code>stegsolve</code>. However, there are other online alternatives that work just as well such as <a href="https://stegonline.georgeom.net/">https://stegonline.georgeom.net/</a> or <a href="https://www.aperisolve.com/">https://www.aperisolve.com/</a>.</p>
+<p>With the filter, I noticed that there was some interesting bits at the top of the image, which was an indicator that there may be some data embedded in the least significant bit.
+<img loading="lazy" src="content/posts/target_ctf/tier1/target1/images/image_b_1.png" alt="image"  />
+
+LSB steganography is the concept in which the least significant bit is replaced with the data to be hidden.</p>
+<p>I ran <code>zsteg</code> to extract the LSB:
+<code>KaierljsipvgbediecsvhrrscaEvvqyq=====</code></p>
+<p>I used the Vigenère cipher, as hinted by the challenge description, to decrypt the string. I knew that the cipher used a key, so I wondered if there was another component in which the key was hidden. However, after searching, I couldn&rsquo;t find anything, so I tried the name of the ransomware gang,  <code>shinyscorpion</code>, which worked!</p>
+<p>Flag: <code>Start the ransomware attack on Monday</code></p>
+<h2 id="a-snowy-disposition">A Snowy Disposition<a hidden class="anchor" aria-hidden="true" href="#a-snowy-disposition">#</a></h2>
+<p>200</p>
+<blockquote>
+<p>You&rsquo;ve gained access to a suspected Shiny Scorpion drop file! But, before you can analyze it for malware, you must figure out the password to file so that you can view it in a containment VM. The only thing to give you a hint is a poem included in the same directory as the Shiny Scorpion dropfile. Maybe you can find a clue?</p>
+</blockquote>
+<p>The file given was a poem of Spellbound by Emily Brontë. At first, I couldn&rsquo;t tell if any thing was off about it. Then, on further inspection, it seemed like there were extra spaces at the end of each line of the poem. I tried counting all the whitespaces and converting from ASCII to characters, but to no avail. This led me to research whitespace steganography and I thought that it could be using <code>stegsnow</code> because of the name of the challenge. However, it was simpler than it appeared. Seems like all it took was counting <em>all</em> the whitespaces, as I had not accounted for the spaces between the words.</p>
+<p>I also made a really small script to count the whitespaces because I didn&rsquo;t want to manually count it:</p>
+<pre tabindex="0"><code>for line in text:  
+  count = 0  
+  for char in line:  
+if char == &#34; &#34;:  
+  count+=1  
+  print(count, end = &#34; &#34;)  
+  
+&gt; 81 85 49 88 48 84 49 67 65 76 76 89
+</code></pre><p>When we convert that to ASCII, we get the flag.</p>
+<p>Flag: <code>QU1X0T1CALLY</code></p>
+<h2 id="follow-the-dotted-line">Follow the Dotted Line<a hidden class="anchor" aria-hidden="true" href="#follow-the-dotted-line">#</a></h2>
+<p>200</p>
+<blockquote>
+<p>The following message was found in a packet capture file originating from a device that is suspected to be associated with the Shiny Scorpion malware group. Can you find the hidden message?</p>
+<p>.&ndash;.- &ndash;&hellip; &ndash;.&ndash; -&hellip;- -.-.- &mdash;&ndash; -..&ndash; -.&mdash;</p>
+<p>Labor Day sale!</p>
+<p>You won&rsquo;t want to miss this! We&rsquo;re putting on our biggest Labor Day sale yet. Mark your calendars to bring home the bacon with these unbelievable savings!</p>
+<p>.&mdash;. -.&mdash; -..&ndash; -&hellip;- -.-.- &mdash;&ndash; &mdash;.- &ndash;.&ndash;</p>
+</blockquote>
+<p>At first, the dots and dashes made the cipher look like Morse code. However, upon trying Morse Code, the plaintext that came out didn’t seem right. On further analysis, I saw that the word &lsquo;bacon&rsquo; was marked in red. I recall doing a prior CTF challenge with the baconian cipher. The baconian cipher works by taking two symbols such as A and B and creating encodings with those two binary symbols with a length of 5. The cipher matched this behavior, so it was simply a matter of decoding the baconian cipher.</p>
+<p>This wasn&rsquo;t necessary, but I made a simple script to convert the dots and dashes to As and Bs:</p>
+<pre tabindex="0"><code>s = &#34;.--.- --... --.-- -...- -.-.- ----- -..-- -.--- .---. -.--- -..-- -...- -.-.- ----- ---.- --.--&#34;  
+  
+for l in s:  
+  if l == &#34;.&#34;:  
+print(&#34;A&#34;, end=&#34;&#34;)  
+  elif l == &#34;-&#34;:  
+print(&#34;B&#34;, end=&#34;&#34;)  
+  else:  
+print(&#34; &#34;, end=&#34;&#34;)
+</code></pre><p>Then it was just a matter of putting it in CyberChef.</p>
+<p>Flag: <code>THEPLANISINPLACE</code></p>
+<h2 id="a-particular-exchange">A Particular Exchange<a hidden class="anchor" aria-hidden="true" href="#a-particular-exchange">#</a></h2>
+<p>300</p>
+<blockquote>
+<p>The below email has been intercepted and Threat Intellegence believes that the proof of the infiltration of Shiny Scorpion into the organization can be extracted somewhere in this email. Can you find the shared information?</p>
+<hr>
+<p>Hi Bob,</p>
+<p>As you may have heard from Director Diffie-Hellman, there is going to be a party to support inter-team communication. Can you arrange to have nine orders of papaya salad, seven orders of the grape pastries, six dozen apples, and eight loaves of banana bread?</p>
+<p>The shared information is of the upmost importance.</p>
+<p>Thanks,
+Alice</p>
+</blockquote>
+<p><em>TODO: explain Diffie-Hellman better</em></p>
+<p>This was a simple Diffie-Hellman key exchange problem. Seems like there was supposed to be more to it, but was taken out.</p>
+<p><strong>From the description:</strong>
+Prime number <code>P = 9</code></p>
+<p>Generator number <code>G = 7</code></p>
+<p>Private key (secret number) <code>a = 6</code></p>
+<p>Private key (secret number) <code>b = 8</code></p>
+<p>You can manually count it or put it in a shared key calculator such as <a href="https://www.dcode.fr/diffie-hellman-key-exchange">https://www.dcode.fr/diffie-hellman-key-exchange</a></p>
+<p><strong>The calculation (credit to the above link) is as follows:</strong></p>
+<p>Public Key <code>A = G^a%P = 7^6%9 = 1</code></p>
+<p>Public Key <code>A = G^b%P = 7^8%9 = 4</code></p>
+<p>Secret <code>S = B^a%P = A^b%P = 1</code></p>
+<p>Flag: <code>1</code></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://g0ldf15h.github.io/tags/cryptography/">cryptography</a></li>
+      <li><a href="https://g0ldf15h.github.io/tags/steganography/">steganography</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Target Tier 2</span>
+  </a>
+  <a class="next" href="https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Target II: Reverse Engineering</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://g0ldf15h.github.io/">goldfish</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

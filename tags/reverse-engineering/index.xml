@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Target II: Reverse Engineering</title>
-      <link>https://g0ldf15h.github.io/posts/target_ctf/target2/</link>
+      <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</link>
       <pubDate>Fri, 07 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://g0ldf15h.github.io/posts/target_ctf/target2/</guid>
+      <guid>https://g0ldf15h.github.io/posts/target_ctf/tier1/target2/</guid>
       <description>Recently I completed Tier 1 of Target&amp;rsquo;s Cyber Defense Challenge offered to members of the WiCys (Women in Cybersecurity) organization. It was a CTF comprised of four categories: cryptography/steganography, reverse engineering, USB forensics, and cyber threat intelligence. In this second part, I will go over the challenges in the reverse engineering section. In my opinion, this was the most technical challenge as knowledge of basic assembly (x86) and the C programming language was required.</description>
     </item>
     
