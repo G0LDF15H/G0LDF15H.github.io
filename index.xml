@@ -6,14 +6,26 @@
     <description>Recent content on goldfish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Aug 2023 19:23:17 -0500</lastBuildDate><atom:link href="https://g0ldf15h.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Jan 2024 13:19:21 -0600</lastBuildDate><atom:link href="https://g0ldf15h.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logjammer</title>
+      <link>https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/</link>
+      <pubDate>Sat, 20 Jan 2024 13:19:21 -0600</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/</guid>
+      <description>When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09
+There are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]
+The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass
+The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.</description>
+    </item>
+    
     <item>
       <title>Target Tier 3</title>
       <link>https://g0ldf15h.github.io/posts/target_ctf/tier3/</link>
       <pubDate>Sun, 27 Aug 2023 19:23:17 -0500</pubDate>
       
       <guid>https://g0ldf15h.github.io/posts/target_ctf/tier3/</guid>
-      <description>Target Cyber Defense Challenge Introduction University of Texas at Austin Computer Science, 2025 Digital forensics and incident response Interned at CrowdStrike My knowledge coming in Assembly (learned ARM, but did go through some x86 on my own) Prior CTF experience Coding Basic tools such as Wireshark Tier 1 Cryptography / Steganography Reverse engineering USB forensics Cyber threat intelligence Cryptography Beware the Ides of March Now You See Me, Now You Don’t A Snowy Disposition (challenging) Figuring out which spaces counted (only counted spaces at the end at first) Follow the Dotted Line A Particular Exchange What I learned Recognizing ciphers / type of steg Tools Cyberchef stegsolve (aperisolve/stegonline) stegsnow Reverse engineering A5M (challenging) r04c4 (challenging) Sc0rf1g (challenging) (HARDEST) Yarrr (challenging) Didn&amp;rsquo;t think I had the flag Web2ut3 What I learned x86 Using decompilers USB forensics Find the Blue Yeti Know your Filters!</description>
+      <description>Target Cyber Defense Challenge Introduction University of Texas at Austin Computer Science, 2025 Digital forensics and incident response Interned at CrowdStrike Background Assembly (learned ARM, but did go through some x86 on my own) Prior CTF experience Coding Basic tools such as Wireshark Programming, data structures, computer architecture, operating systems Tier 1 Cryptography / Steganography Reverse engineering USB forensics Cyber threat intelligence Cryptography Beware the Ides of March Now You See Me, Now You Don’t A Snowy Disposition (challenging) Figuring out which spaces counted (only counted spaces at the end at first) Follow the Dotted Line A Particular Exchange What I learned Recognizing ciphers / type of steg Tools Cyberchef stegsolve (aperisolve/stegonline) stegsnow Reverse engineering A5M (challenging) r04c4 (challenging) Sc0rf1g (challenging) (HARDEST) Yarrr (challenging) Didn&amp;rsquo;t think I had the flag Web2ut3 Bonus !</description>
     </item>
     
     <item>

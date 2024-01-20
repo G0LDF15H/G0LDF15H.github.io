@@ -2,11 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://g0ldf15h.github.io/categories/</loc>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/tags/forensics/</loc>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
+  </url><url>
     <loc>https://g0ldf15h.github.io/</loc>
-    <lastmod>2023-08-27T19:23:17-05:00</lastmod>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/categories/htb/</loc>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/</loc>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/posts/</loc>
-    <lastmod>2023-08-27T19:23:17-05:00</lastmod>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
+  </url><url>
+    <loc>https://g0ldf15h.github.io/tags/</loc>
+    <lastmod>2024-01-20T13:19:21-06:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/posts/target_ctf/tier3/</loc>
     <lastmod>2023-08-27T19:23:17-05:00</lastmod>
@@ -26,16 +41,10 @@
     <loc>https://g0ldf15h.github.io/posts/target_ctf/tier2_writeups/tier-2-writeups/</loc>
     <lastmod>2023-07-14T08:41:21-05:00</lastmod>
   </url><url>
-    <loc>https://g0ldf15h.github.io/categories/</loc>
-    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://g0ldf15h.github.io/tags/cryptography/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/categories/ctf/</loc>
-    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://g0ldf15h.github.io/tags/forensics/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/tags/intel/</loc>
@@ -45,9 +54,6 @@
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/tags/steganography/</loc>
-    <lastmod>2023-07-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://g0ldf15h.github.io/tags/</loc>
     <lastmod>2023-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://g0ldf15h.github.io/posts/target_ctf/tier1/target1/</loc>

@@ -6,7 +6,19 @@
     <description>Recent content in forensics on goldfish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 07 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://g0ldf15h.github.io/tags/forensics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Jan 2024 13:19:21 -0600</lastBuildDate><atom:link href="https://g0ldf15h.github.io/tags/forensics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logjammer</title>
+      <link>https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/</link>
+      <pubDate>Sat, 20 Jan 2024 13:19:21 -0600</pubDate>
+      
+      <guid>https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/</guid>
+      <description>When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09
+There are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]
+The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass
+The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.</description>
+    </item>
+    
     <item>
       <title>Target III: USB Forensics</title>
       <link>https://g0ldf15h.github.io/posts/target_ctf/tier1/target3/</link>

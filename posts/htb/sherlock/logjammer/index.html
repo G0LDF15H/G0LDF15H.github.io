@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Logjammer | goldfish</title>
+<meta name="keywords" content="forensics">
+<meta name="description" content="When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09
+There are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]
+The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass
+The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.">
+<meta name="author" content="">
+<link rel="canonical" href="https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3613efbd0b1772781e8f49935e973cae632a7f61471c05b17be155505ccf87b5.css" integrity="sha256-NhPvvQsXcngej0mTXpc8rmMqf2FHHAWxe&#43;FVUFzPh7U=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://g0ldf15h.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://g0ldf15h.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://g0ldf15h.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://g0ldf15h.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://g0ldf15h.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YD66GB1T4"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-8YD66GB1T4', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Logjammer" />
+<meta property="og:description" content="When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09
+There are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]
+The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass
+The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-20T13:19:21-06:00" />
+<meta property="article:modified_time" content="2024-01-20T13:19:21-06:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Logjammer"/>
+<meta name="twitter:description" content="When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09
+There are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]
+The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass
+The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://g0ldf15h.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Logjammer",
+      "item": "https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Logjammer",
+  "name": "Logjammer",
+  "description": "When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09\nThere are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]\nThe user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass\nThe last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.",
+  "keywords": [
+    "forensics"
+  ],
+  "articleBody": "When did user cyberjunkie successfully log into his computer? (UTC) 27/03/2023 14:37:09\nThere are two Event IDs for login: 4624 (successful logon) and 4648 (logon attempted using explicit credentials) ![[Pasted image 20240117155123.png]]\nThe user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added? Metasploit C2 Bypass\nThe last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.\nWhat’s the direction of the firewall rule? Outbound\nThe user changed audit policy of the computer. What’s the Subcategory of this changed policy? Other Object Access Events\n![[Pasted image 20240117143852.png]]\nAudit policy: determines which type of information about the system can be found in the Security log. This is Event ID 4719.\nTo find the subcategory, I searched up the Subcategory Guid.\n![[Pasted image 20240117144407.png]]\nhttps://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/77878370-0712-47cd-997d-b07053429f6d The user “cyberjunkie” created a scheduled task. Whats the name of this task? HTB-AUTOMATION\nEvent ID: 4698\nA scheduled task was created https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698 What’s the full path of the file which was scheduled for the task? C:\\Users\\CyberJunkie\\Desktop\\Automation-HTB.ps1 ![[Pasted image 20240117145509.png]] (Note to self – output had double \\ (\\), probably for formatting)\nWhat are the arguments of the command? -A cyberjunkie@hackthebox.eu ![[Pasted image 20240117145537.png]]\nThe antivirus running on the system identified a threat and performed actions on it. Which tool was identified as malware by antivirus? SharpHound\n![[Pasted image 20240117150901.png]]\nEvent ID 1117: Action performed https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide What’s the full path of the malware which raised the alert? C:\\Users\\CyberJunkie\\Downloads\\SharpHound-v1.1.0.zip\nPut payload from log in JSON formatter ![[Pasted image 20240117151116.png]] What action was taken by the antivirus? Quarantine ![[Pasted image 20240117151324.png]]\nThe user used Powershell to execute commands. What command was executed by the user? Get-FileHash -Algorithm md5 .\\Desktop\\Automation-HTB.ps1\n![[Pasted image 20240117151612.png]]\nWe suspect the user deleted some event logs. Which Event log file was cleared? Microsoft-Windows-Windows Firewall With Advanced Security/Firewall\nCan find event log clear in Security log 1100, 1102 or in System 104 ",
+  "wordCount" : "329",
+  "inLanguage": "en",
+  "datePublished": "2024-01-20T13:19:21-06:00",
+  "dateModified": "2024-01-20T13:19:21-06:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://g0ldf15h.github.io/posts/htb/sherlock/logjammer/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "goldfish",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://g0ldf15h.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://g0ldf15h.github.io/" accesskey="h" title="goldfish (Alt + H)">goldfish</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://g0ldf15h.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://g0ldf15h.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://g0ldf15h.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://g0ldf15h.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Logjammer
+    </h1>
+    <div class="post-meta">&lt;span title=&#39;2024-01-20 13:19:21 -0600 CST&#39;&gt;January 20, 2024&lt;/span&gt;
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#when-did-user-cyberjunkie-successfully-log-into-his-computer-utc" aria-label="When did user cyberjunkie successfully log into his computer? (UTC)">When did user cyberjunkie successfully log into his computer? (UTC)</a></li>
+                <li>
+                    <a href="#the-user-tampered-with-firewall-settings-on-the-system-analyze-the-firewall-event-logs-to-find-out-the-name-of-the-firewall-rule-added" aria-label="The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added?">The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added?</a></li>
+                <li>
+                    <a href="#whats-the-direction-of-the-firewall-rule" aria-label="What&amp;rsquo;s the direction of the firewall rule?">What&rsquo;s the direction of the firewall rule?</a></li>
+                <li>
+                    <a href="#the-user-changed-audit-policy-of-the-computer-whats-the-subcategory-of-this-changed-policy" aria-label="The user changed audit policy of the computer. What&amp;rsquo;s the Subcategory of this changed policy?">The user changed audit policy of the computer. What&rsquo;s the Subcategory of this changed policy?</a></li>
+                <li>
+                    <a href="#the-user-cyberjunkie-created-a-scheduled-task-whats-the-name-of-this-task" aria-label="The user &amp;ldquo;cyberjunkie&amp;rdquo; created a scheduled task. Whats the name of this task?">The user &ldquo;cyberjunkie&rdquo; created a scheduled task. Whats the name of this task?</a></li>
+                <li>
+                    <a href="#whats-the-full-path-of-the-file-which-was-scheduled-for-the-task" aria-label="What&amp;rsquo;s the full path of the file which was scheduled for the task?">What&rsquo;s the full path of the file which was scheduled for the task?</a></li>
+                <li>
+                    <a href="#what-are-the-arguments-of-the-command" aria-label="What are the arguments of the command?">What are the arguments of the command?</a></li>
+                <li>
+                    <a href="#the-antivirus-running-on-the-system-identified-a-threat-and-performed-actions-on-it-which-tool-was-identified-as-malware-by-antivirus" aria-label="The antivirus running on the system identified a threat and performed actions on it. Which tool was identified as malware by antivirus?">The antivirus running on the system identified a threat and performed actions on it. Which tool was identified as malware by antivirus?</a></li>
+                <li>
+                    <a href="#whats-the-full-path-of-the-malware-which-raised-the-alert" aria-label="What&amp;rsquo;s the full path of the malware which raised the alert?">What&rsquo;s the full path of the malware which raised the alert?</a></li>
+                <li>
+                    <a href="#what-action-was-taken-by-the-antivirus" aria-label="What action was taken by the antivirus?">What action was taken by the antivirus?</a></li>
+                <li>
+                    <a href="#the-user-used-powershell-to-execute-commands-what-command-was-executed-by-the-user" aria-label="The user used Powershell to execute commands. What command was executed by the user?">The user used Powershell to execute commands. What command was executed by the user?</a></li>
+                <li>
+                    <a href="#we-suspect-the-user-deleted-some-event-logs-which-event-log-file-was-cleared" aria-label="We suspect the user deleted some event logs. Which Event log file was cleared?">We suspect the user deleted some event logs. Which Event log file was cleared?</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h4 id="when-did-user-cyberjunkie-successfully-log-into-his-computer-utc">When did user cyberjunkie successfully log into his computer? (UTC)<a hidden class="anchor" aria-hidden="true" href="#when-did-user-cyberjunkie-successfully-log-into-his-computer-utc">#</a></h4>
+<p><code>27/03/2023 14:37:09</code></p>
+<p>There are two Event IDs for login: <code>4624</code> (successful logon) and <code>4648</code> (logon attempted using explicit credentials)
+![[Pasted image 20240117155123.png]]</p>
+<h4 id="the-user-tampered-with-firewall-settings-on-the-system-analyze-the-firewall-event-logs-to-find-out-the-name-of-the-firewall-rule-added">The user tampered with firewall settings on the system. Analyze the firewall event logs to find out the Name of the firewall rule added?<a hidden class="anchor" aria-hidden="true" href="#the-user-tampered-with-firewall-settings-on-the-system-analyze-the-firewall-event-logs-to-find-out-the-name-of-the-firewall-rule-added">#</a></h4>
+<p><code>Metasploit C2 Bypass</code></p>
+<p>The last log when I filtered by firewall event logs (the most recent) was a suspicious rule called Metasploit C2 Bypass.</p>
+<h4 id="whats-the-direction-of-the-firewall-rule">What&rsquo;s the direction of the firewall rule?<a hidden class="anchor" aria-hidden="true" href="#whats-the-direction-of-the-firewall-rule">#</a></h4>
+<p><code>Outbound</code></p>
+<h4 id="the-user-changed-audit-policy-of-the-computer-whats-the-subcategory-of-this-changed-policy">The user changed audit policy of the computer. What&rsquo;s the Subcategory of this changed policy?<a hidden class="anchor" aria-hidden="true" href="#the-user-changed-audit-policy-of-the-computer-whats-the-subcategory-of-this-changed-policy">#</a></h4>
+<p><code>Other Object Access Events</code></p>
+<p>![[Pasted image 20240117143852.png]]</p>
+<p><strong>Audit policy</strong>: determines which type of information about the system can be found in the Security log. This is Event ID 4719.</p>
+<p>To find the subcategory, I searched up the Subcategory Guid.</p>
+<p>![[Pasted image 20240117144407.png]]</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/77878370-0712-47cd-997d-b07053429f6d">https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/77878370-0712-47cd-997d-b07053429f6d</a></li>
+</ul>
+<h4 id="the-user-cyberjunkie-created-a-scheduled-task-whats-the-name-of-this-task">The user &ldquo;cyberjunkie&rdquo; created a scheduled task. Whats the name of this task?<a hidden class="anchor" aria-hidden="true" href="#the-user-cyberjunkie-created-a-scheduled-task-whats-the-name-of-this-task">#</a></h4>
+<p><code>HTB-AUTOMATION</code></p>
+<p>Event ID: 4698</p>
+<ul>
+<li>A scheduled task was created</li>
+<li><a href="https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698">https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698</a></li>
+</ul>
+<h4 id="whats-the-full-path-of-the-file-which-was-scheduled-for-the-task">What&rsquo;s the full path of the file which was scheduled for the task?<a hidden class="anchor" aria-hidden="true" href="#whats-the-full-path-of-the-file-which-was-scheduled-for-the-task">#</a></h4>
+<p><code>C:\Users\CyberJunkie\Desktop\Automation-HTB.ps1</code>
+![[Pasted image 20240117145509.png]]
+(Note to self &ndash; output had double \ (\), probably for formatting)</p>
+<h4 id="what-are-the-arguments-of-the-command">What are the arguments of the command?<a hidden class="anchor" aria-hidden="true" href="#what-are-the-arguments-of-the-command">#</a></h4>
+<p><code>-A cyberjunkie@hackthebox.eu</code>
+![[Pasted image 20240117145537.png]]</p>
+<h4 id="the-antivirus-running-on-the-system-identified-a-threat-and-performed-actions-on-it-which-tool-was-identified-as-malware-by-antivirus">The antivirus running on the system identified a threat and performed actions on it. Which tool was identified as malware by antivirus?<a hidden class="anchor" aria-hidden="true" href="#the-antivirus-running-on-the-system-identified-a-threat-and-performed-actions-on-it-which-tool-was-identified-as-malware-by-antivirus">#</a></h4>
+<p><code>SharpHound</code></p>
+<p>![[Pasted image 20240117150901.png]]</p>
+<ul>
+<li>Event ID 1117: Action performed <a href="https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide">https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide</a></li>
+</ul>
+<h4 id="whats-the-full-path-of-the-malware-which-raised-the-alert">What&rsquo;s the full path of the malware which raised the alert?<a hidden class="anchor" aria-hidden="true" href="#whats-the-full-path-of-the-malware-which-raised-the-alert">#</a></h4>
+<p><code>C:\Users\CyberJunkie\Downloads\SharpHound-v1.1.0.zip</code></p>
+<ul>
+<li>Put payload from log in JSON formatter
+![[Pasted image 20240117151116.png]]</li>
+</ul>
+<h4 id="what-action-was-taken-by-the-antivirus">What action was taken by the antivirus?<a hidden class="anchor" aria-hidden="true" href="#what-action-was-taken-by-the-antivirus">#</a></h4>
+<p><code>Quarantine</code>
+![[Pasted image 20240117151324.png]]</p>
+<h4 id="the-user-used-powershell-to-execute-commands-what-command-was-executed-by-the-user">The user used Powershell to execute commands. What command was executed by the user?<a hidden class="anchor" aria-hidden="true" href="#the-user-used-powershell-to-execute-commands-what-command-was-executed-by-the-user">#</a></h4>
+<p><code>Get-FileHash -Algorithm md5 .\Desktop\Automation-HTB.ps1</code></p>
+<p>![[Pasted image 20240117151612.png]]</p>
+<h4 id="we-suspect-the-user-deleted-some-event-logs-which-event-log-file-was-cleared">We suspect the user deleted some event logs. Which Event log file was cleared?<a hidden class="anchor" aria-hidden="true" href="#we-suspect-the-user-deleted-some-event-logs-which-event-log-file-was-cleared">#</a></h4>
+<p><code>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</code></p>
+<ul>
+<li>Can find event log clear in Security log 1100, 1102 or in System 104</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://g0ldf15h.github.io/tags/forensics/">forensics</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://g0ldf15h.github.io/posts/target_ctf/tier3/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Target Tier 3</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://g0ldf15h.github.io/">goldfish</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
